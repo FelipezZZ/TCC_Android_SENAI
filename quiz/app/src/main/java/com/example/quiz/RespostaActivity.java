@@ -19,14 +19,15 @@ public class RespostaActivity extends AppCompatActivity {
         TextView resposta = (TextView)findViewById(R.id.resposta);
 
         Intent intent = getIntent();
+        int pontos = intent.getIntExtra("pontos", 0);
         boolean acertou = intent.getBooleanExtra("acertou", true);
         if(acertou){
             imgResposta.setImageResource(R.drawable.acertou);
-            resposta.setText("Acertou!");
+            resposta.setText("Acertou! Pontos: " + pontos);
         }
         else{
             imgResposta.setImageResource(R.drawable.errou);
-            resposta.setText("Errou!");
+            resposta.setText("Errou! Pontos: " + pontos);;
         }
 
         Thread thread = new Thread(new Runnable() {
