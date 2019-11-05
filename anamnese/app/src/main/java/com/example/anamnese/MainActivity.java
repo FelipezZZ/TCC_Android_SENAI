@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             rbResposta1.setText(respostas.get(1));
             rbResposta2.setText(respostas.get(2));
             rbResposta3.setText(respostas.get(3));
-            rgRespostas.setSelected(false);
+            rgRespostas.clearCheck();
         }else{ //acabaram as questões
             //mandar para outra tela
         }
@@ -82,17 +82,52 @@ public class MainActivity extends AppCompatActivity {
     public void btnResponderOnClick(View v){
         RadioGroup rgRespostas = (RadioGroup)findViewById(R.id.rgRespostas);
         RadioButton rb = (RadioButton)findViewById(rgRespostas.getCheckedRadioButtonId());
-        Log.i("tipoADS", String.valueOf(tipoADS));
         if(tipoADS == 1){
-            Log.i("tipoADS é:", "1");
+            Log.i("tipoADS", "1");
+            if(rbResposta0.isChecked()){
+                a = a + 0;
+            }
+            if(rbResposta1.isChecked()){
+                a = a + 1;
+            }
+            if(rbResposta2.isChecked()){
+                a = a + 2;
+            }
+            if(rbResposta3.isChecked()){
+                a = a + 3;
+            }
         }
 
         if(tipoADS == 2){
             Log.i("tipoADS", "2");
+            if(rbResposta0.isChecked()){
+                d = d + 0;
+            }
+            if(rbResposta1.isChecked()){
+                d = d + 1;
+            }
+            if(rbResposta2.isChecked()){
+                d = d + 2;
+            }
+            if(rbResposta3.isChecked()){
+                d = d + 3;
+            }
         }
 
         if(tipoADS == 3){
             Log.i("tipoADS", "3");
+            if(rbResposta0.isChecked()){
+                s = s + 0;
+            }
+            if(rbResposta1.isChecked()){
+                s = s + 1;
+            }
+            if(rbResposta2.isChecked()){
+                s = s + 2;
+            }
+            if(rbResposta3.isChecked()){
+                s = s + 3;
+            }
         }
 
         Log.i("a", String.valueOf(a));
