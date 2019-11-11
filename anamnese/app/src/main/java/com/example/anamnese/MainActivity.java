@@ -43,7 +43,9 @@ public class MainActivity extends AppCompatActivity {
 
     TextView pergunta;
     RadioButton  rbResposta0 ,rbResposta1, rbResposta2, rbResposta3;
-    int a, d, s, tipoADS;
+    int tipoADS, contador = 0;
+    Resposta a, d ,s;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,72 @@ public class MainActivity extends AppCompatActivity {
         RadioGroup rgRespostas = (RadioGroup)findViewById(R.id.rgRespostas);
 
         if(perguntas.size() > 0){
+            Pergunta p = perguntas.get(contador);
+            tipoADS = p.getTipoADS();
+            pergunta.setText(p.getPergunta());
+            List<String> respostas = p.getRespostas();
+            rbResposta0.setText(respostas.get(0));
+            rbResposta1.setText(respostas.get(1));
+            rbResposta2.setText(respostas.get(2));
+            rbResposta3.setText(respostas.get(3));
+            rgRespostas.clearCheck();
+        }else{ //acabaram as questões
+            //mandar para outra tela
+        }
+
+    }
+
+    public void btnPrevOnClick(View v){
+        RadioGroup rgRespostas = (RadioGroup)findViewById(R.id.rgRespostas);
+        RadioButton rb = (RadioButton)findViewById(rgRespostas.getCheckedRadioButtonId());
+
+        if(contador <= 0){
+            contador = 0;
+        }else {
+            contador--;
+        }
+        onRestart();
+    }
+
+    public void btnNextOnClick(View v){
+        RadioGroup rgRespostas = (RadioGroup)findViewById(R.id.rgRespostas);
+        RadioButton rb = (RadioButton)findViewById(rgRespostas.getCheckedRadioButtonId());
+
+        if(contador == 0){
+            Log.i("tipoADS", "1");
+            if(rbResposta0.isChecked()){
+                a.setTipoADS(3);
+                a.setRp1(0);
+            }
+            if(rbResposta1.isChecked()){
+                a.setTipoADS(3);
+                a.setRp1(1);
+            }
+            if(rbResposta2.isChecked()){
+                a.setTipoADS(3);
+                a.setRp1(2);
+            }
+            if(rbResposta3.isChecked()){
+                a.setTipoADS(3);
+                a.setRp1(3);
+            }
+            Log.i("Resposta 1", String.valueOf(a.getRp1()));
+        }
+
+        if(contador >= 20){
+            contador = 20;
+        }else{
+            contador++;
+        }
+        onRestart();
+    }
+
+    /*
+    private void carregarPergunta(){
+
+        RadioGroup rgRespostas = (RadioGroup)findViewById(R.id.rgRespostas);
+
+        if(perguntas.size() > 0){
             Pergunta p = perguntas.remove(0);;
             tipoADS = p.getTipoADS();
             pergunta.setText(p.getPergunta());
@@ -78,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
 
     public void btnResponderOnClick(View v){
         RadioGroup rgRespostas = (RadioGroup)findViewById(R.id.rgRespostas);
@@ -136,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
 
         onRestart();
 
-    }
+    }*/
 
     @Override
     protected void onRestart(){
