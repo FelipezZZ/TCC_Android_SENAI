@@ -1,6 +1,8 @@
 package com.example.anamnese;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     int tipoADS, contador = 0;
     Resposta a, d ,s;
 
+    private ArrayList<String> mNumeros = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +61,44 @@ public class MainActivity extends AppCompatActivity {
         rbResposta2 = (RadioButton)findViewById(R.id.rbResposta2);
         rbResposta3 = (RadioButton)findViewById(R.id.rbResposta3);
 
+        getNumeros();
         carregarPergunta();
+    }
+
+    private void getNumeros(){
+
+        mNumeros.add("1");
+        mNumeros.add("2");
+        mNumeros.add("3");
+        mNumeros.add("4");
+        mNumeros.add("5");
+        mNumeros.add("6");
+        mNumeros.add("7");
+        mNumeros.add("8");
+        mNumeros.add("9");
+        mNumeros.add("10");
+        mNumeros.add("11");
+        mNumeros.add("12");
+        mNumeros.add("13");
+        mNumeros.add("14");
+        mNumeros.add("15");
+        mNumeros.add("16");
+        mNumeros.add("17");
+        mNumeros.add("18");
+        mNumeros.add("19");
+        mNumeros.add("20");
+        mNumeros.add("21");
+
+        initRecyclerView();
+    }
+
+    private void initRecyclerView(){
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(layoutManager);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, mNumeros);
+        recyclerView.setAdapter(adapter);
     }
 
     private void carregarPergunta(){
@@ -98,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
         RadioButton rb = (RadioButton)findViewById(rgRespostas.getCheckedRadioButtonId());
 
         if(contador == 0){
-            Log.i("tipoADS", "1");
+            /*Log.i("tipoADS", "1");
             if(rbResposta0.isChecked()){
                 a.setTipoADS(3);
                 a.setRp1(0);
@@ -115,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
                 a.setTipoADS(3);
                 a.setRp1(3);
             }
-            Log.i("Resposta 1", String.valueOf(a.getRp1()));
+            Log.i("Resposta 1", String.valueOf(a.getRp1()));*/
         }
 
         if(contador >= 20){
