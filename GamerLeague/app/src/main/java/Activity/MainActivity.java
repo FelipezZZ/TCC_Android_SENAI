@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         btnAbrirCadastro.setOnClickListener(this);
         btnEntrar.setOnClickListener(this);
-
     }
 
     @Override
