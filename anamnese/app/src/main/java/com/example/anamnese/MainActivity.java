@@ -285,6 +285,7 @@ public class MainActivity extends AppCompatActivity  implements RecyclerViewAdap
                 if (rb == rbResposta3){
                     ansiedade.set(0, 3);
                 }
+                Log.i("ANSIEDADE 0", String.valueOf(ansiedade.get(0)));
             }
 
             if(contador == 3){
@@ -300,6 +301,7 @@ public class MainActivity extends AppCompatActivity  implements RecyclerViewAdap
                 if (rb == rbResposta3){
                     ansiedade.set(1, 3);
                 }
+                Log.i("ANSIEDADE 1", String.valueOf(ansiedade.get(1)));
             }
 
             if(contador == 6){
@@ -315,6 +317,7 @@ public class MainActivity extends AppCompatActivity  implements RecyclerViewAdap
                 if (rb == rbResposta3){
                     ansiedade.set(2, 3);
                 }
+                Log.i("ANSIEDADE 2", String.valueOf(ansiedade.get(2)));
             }
 
             if(contador == 8){
@@ -330,6 +333,7 @@ public class MainActivity extends AppCompatActivity  implements RecyclerViewAdap
                 if (rb == rbResposta3){
                     ansiedade.set(3, 3);
                 }
+                Log.i("ANSIEDADE 3", String.valueOf(ansiedade.get(3)));
             }
 
             if(contador == 14){
@@ -345,6 +349,7 @@ public class MainActivity extends AppCompatActivity  implements RecyclerViewAdap
                 if (rb == rbResposta3){
                     ansiedade.set(4, 3);
                 }
+                Log.i("ANSIEDADE 4", String.valueOf(ansiedade.get(4)));
             }
 
             if(contador == 18){
@@ -360,6 +365,7 @@ public class MainActivity extends AppCompatActivity  implements RecyclerViewAdap
                 if (rb == rbResposta3){
                     ansiedade.set(5, 3);
                 }
+                Log.i("ANSIEDADE 5", String.valueOf(ansiedade.get(5)));
             }
 
             if(contador == 19){
@@ -375,6 +381,7 @@ public class MainActivity extends AppCompatActivity  implements RecyclerViewAdap
                 if (rb == rbResposta3){
                     ansiedade.set(6, 3);
                 }
+                Log.i("ANSIEDADE 6", String.valueOf(ansiedade.get(6)));
             }
         }
 
@@ -395,6 +402,7 @@ public class MainActivity extends AppCompatActivity  implements RecyclerViewAdap
                 if (rb == rbResposta3){
                     depressao.set(0, 3);
                 }
+                Log.i("DEPRESSAO 0", String.valueOf(ansiedade.get(0)));
             }
 
             if(contador == 4){
@@ -410,6 +418,7 @@ public class MainActivity extends AppCompatActivity  implements RecyclerViewAdap
                 if (rb == rbResposta3){
                     depressao.set(1, 3);
                 }
+                Log.i("DEPRESSAO 1", String.valueOf(ansiedade.get(1)));
             }
 
             if(contador == 9){
@@ -425,6 +434,7 @@ public class MainActivity extends AppCompatActivity  implements RecyclerViewAdap
                 if (rb == rbResposta3){
                     depressao.set(2, 3);
                 }
+                Log.i("DEPRESSAO 2", String.valueOf(ansiedade.get(2)));
             }
 
             if(contador == 12){
@@ -440,6 +450,7 @@ public class MainActivity extends AppCompatActivity  implements RecyclerViewAdap
                 if (rb == rbResposta3){
                     depressao.set(3, 3);
                 }
+                Log.i("DEPRESSAO 3", String.valueOf(ansiedade.get(3)));
             }
 
             if(contador == 15){
@@ -455,6 +466,7 @@ public class MainActivity extends AppCompatActivity  implements RecyclerViewAdap
                 if (rb == rbResposta3){
                     depressao.set(4, 3);
                 }
+                Log.i("DEPRESSAO 4", String.valueOf(ansiedade.get(4)));
             }
 
             if(contador == 16){
@@ -470,6 +482,7 @@ public class MainActivity extends AppCompatActivity  implements RecyclerViewAdap
                 if (rb == rbResposta3){
                     depressao.set(5, 3);
                 }
+                Log.i("DEPRESSAO 5", String.valueOf(ansiedade.get(5)));
             }
 
             if(contador == 20){
@@ -485,6 +498,7 @@ public class MainActivity extends AppCompatActivity  implements RecyclerViewAdap
                 if (rb == rbResposta3){
                     depressao.set(6, 3);
                 }
+                Log.i("DEPRESSAO 6", String.valueOf(ansiedade.get(6)));
             }
         }
 
@@ -505,6 +519,7 @@ public class MainActivity extends AppCompatActivity  implements RecyclerViewAdap
                 if (rb == rbResposta3){
                     stress.set(0, 3);
                 }
+                Log.i("STRESS 0", String.valueOf(ansiedade.get(0)));
             }
 
             if(contador == 5){
@@ -520,6 +535,7 @@ public class MainActivity extends AppCompatActivity  implements RecyclerViewAdap
                 if (rb == rbResposta3){
                     stress.set(1, 3);
                 }
+                Log.i("STRESS 1", String.valueOf(ansiedade.get(1)));
             }
 
             if(contador == 7){
@@ -535,6 +551,7 @@ public class MainActivity extends AppCompatActivity  implements RecyclerViewAdap
                 if (rb == rbResposta3){
                     stress.set(2, 3);
                 }
+                Log.i("STRESS 2", String.valueOf(ansiedade.get(2)));
             }
 
             if(contador == 10){
@@ -550,6 +567,7 @@ public class MainActivity extends AppCompatActivity  implements RecyclerViewAdap
                 if (rb == rbResposta3){
                     stress.set(3, 3);
                 }
+                Log.i("STRESS 3", String.valueOf(ansiedade.get(3)));
             }
 
             if(contador == 11){
@@ -565,6 +583,7 @@ public class MainActivity extends AppCompatActivity  implements RecyclerViewAdap
                 if (rb == rbResposta3){
                     stress.set(4, 3);
                 }
+                Log.i("STRESS 4", String.valueOf(ansiedade.get(4)));
             }
 
             if(contador == 13){
@@ -580,6 +599,7 @@ public class MainActivity extends AppCompatActivity  implements RecyclerViewAdap
                 if (rb == rbResposta3){
                     stress.set(5, 3);
                 }
+                Log.i("STRESS 5", String.valueOf(ansiedade.get(5)));
             }
 
             if(contador == 17){
@@ -595,6 +615,7 @@ public class MainActivity extends AppCompatActivity  implements RecyclerViewAdap
                 if (rb == rbResposta3){
                     stress.set(6, 3);
                 }
+                Log.i("STRESS 6", String.valueOf(ansiedade.get(6)));
             }
         }
 
