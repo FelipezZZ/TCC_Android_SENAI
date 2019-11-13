@@ -18,8 +18,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity  implements RecyclerViewAdapter.OnNoteListenner {
 
-    List<Integer> ansiedade = new ArrayList<Integer>();
-
+    //LISTAS
+    //LISTA DE PERGUNTAS
     List<Pergunta> perguntas = new ArrayList<Pergunta>() {
         {
             add(new Pergunta(3, "1-Tive dificuldade de me acalmar", "0", "1", "2", "3"));
@@ -46,8 +46,48 @@ public class MainActivity extends AppCompatActivity  implements RecyclerViewAdap
         }
     };
 
+    //LISTA DE RESPOSTAS ANSIEDADE
+    ArrayList<Integer> ansiedade = new ArrayList<Integer>(){
+        {
+            add(0);
+            add(0);
+            add(0);
+            add(0);
+            add(0);
+            add(0);
+            add(0);
+        }
+    };
+
+    //LISTA DE RESPOSTAS DEPRESSAO
+    ArrayList<Integer> depressao = new ArrayList<Integer>(){
+        {
+            add(0);
+            add(0);
+            add(0);
+            add(0);
+            add(0);
+            add(0);
+            add(0);
+        }
+    };
+
+    //LISTA DE RESPOSTAS STRESS
+    ArrayList<Integer> stress = new ArrayList<Integer>(){
+        {
+            add(0);
+            add(0);
+            add(0);
+            add(0);
+            add(0);
+            add(0);
+            add(0);
+        }
+    };
+
     TextView pergunta;
-    RadioButton rbResposta0, rbResposta1, rbResposta2, rbResposta3;
+    RadioButton rbResposta0, rbResposta1, rbResposta2, rbResposta3, rb;
+    RadioGroup rgRespostas;
     int tipoADS, contador = 0;
     Resposta a, d, s;
     private ArrayList<Integer> mNumeros = new ArrayList<>();
@@ -62,10 +102,12 @@ public class MainActivity extends AppCompatActivity  implements RecyclerViewAdap
         rbResposta1 = (RadioButton) findViewById(R.id.rbResposta1);
         rbResposta2 = (RadioButton) findViewById(R.id.rbResposta2);
         rbResposta3 = (RadioButton) findViewById(R.id.rbResposta3);
+
         getNumeros();
         carregarPergunta();
     }
 
+    //COLOCA OS NUMEROS NA LISTA PRA SEREM SETADOS NOS "BOTÕES"
     private void getNumeros() {
 
         mNumeros.add(1);
@@ -93,55 +135,50 @@ public class MainActivity extends AppCompatActivity  implements RecyclerViewAdap
         initRecyclerView();
     }
 
-        private void initRecyclerView() {
+    private void initRecyclerView() {
 
-            LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-            RecyclerView recyclerView = findViewById(R.id.recyclerView);
-            recyclerView.setLayoutManager(layoutManager);
-            RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, mNumeros, this);
-            recyclerView.setAdapter(adapter);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(layoutManager);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, mNumeros, this);
+        recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onNoteClick(int position) {
+        Log.i("OnNoteClick", "clicado chapa");
+        if (mNumeros.get(position) == 0) {
+            contador = mNumeros.get(position+1);
+        } else if(mNumeros.get(position)>= 1){
+            contador = mNumeros.get(position);
+            contador--;
+        }
+        Log.i("position",String.valueOf(mNumeros.get(position)));
+        onRestart();
+    }
+
+    private void carregarPergunta(){
+
+        RadioGroup rgRespostas = (RadioGroup) findViewById(R.id.rgRespostas);
+
+        if (perguntas.size() > 0) {
+            Pergunta p = perguntas.get(contador);
+            tipoADS = p.getTipoADS();
+            pergunta.setText(p.getPergunta());
+            List<String> respostas = p.getRespostas();
+            rbResposta0.setText(respostas.get(0));
+            rbResposta1.setText(respostas.get(1));
+            rbResposta2.setText(respostas.get(2));
+            rbResposta3.setText(respostas.get(3));
+            rgRespostas.clearCheck();
+        } else { //acabaram as questões
+            //mandar para outra tela
         }
 
-        @Override
-        public void onNoteClick(int position) {
-            Log.i("OnNoteClick", "clicado chapa");
-            if (mNumeros.get(position) == 0) {
-                contador = mNumeros.get(position+1);
-            } else if(mNumeros.get(position)>= 1){
-                contador = mNumeros.get(position);
-                contador--;
-            }
-            Log.i("position",String.valueOf(mNumeros.get(position)));
-            onRestart();
-        }
-
-        private void carregarPergunta(){
-
-            RadioGroup rgRespostas = (RadioGroup) findViewById(R.id.rgRespostas);
-
-            if (perguntas.size() > 0) {
-                Pergunta p = perguntas.get(contador);
-                tipoADS = p.getTipoADS();
-                pergunta.setText(p.getPergunta());
-                List<String> respostas = p.getRespostas();
-                rbResposta0.setText(respostas.get(0));
-                rbResposta1.setText(respostas.get(1));
-                rbResposta2.setText(respostas.get(2));
-                rbResposta3.setText(respostas.get(3));
-                rgRespostas.clearCheck();
-            } else { //acabaram as questões
-                //mandar para outra tela
-            }
-
-        }
-
-        public void rvButtonOnclick (View v){
-            /*carregarPergunta(btPergunta.getId());*/
-        }
+    }
 
         public void btnPrevOnClick (View v){
-            RadioGroup rgRespostas = (RadioGroup) findViewById(R.id.rgRespostas);
-            RadioButton rb = (RadioButton) findViewById(rgRespostas.getCheckedRadioButtonId());
+            adicionarResposta();
 
             if (contador <= 0) {
                 contador = 0;
@@ -152,12 +189,7 @@ public class MainActivity extends AppCompatActivity  implements RecyclerViewAdap
         }
 
         public void btnNextOnClick (View v){
-            RadioGroup rgRespostas = (RadioGroup) findViewById(R.id.rgRespostas);
-            RadioButton rb = (RadioButton) findViewById(rgRespostas.getCheckedRadioButtonId());
-
-            if (contador == 0) {
-
-            }
+            adicionarResposta();
 
             if (contador >= 20) {
                 contador = 20;
@@ -167,86 +199,404 @@ public class MainActivity extends AppCompatActivity  implements RecyclerViewAdap
             onRestart();
         }
 
-    /*
-    private void carregarPergunta(){
-
-        RadioGroup rgRespostas = (RadioGroup)findViewById(R.id.rgRespostas);
-
-        if(perguntas.size() > 0){
-            Pergunta p = perguntas.remove(0);;
-            tipoADS = p.getTipoADS();
-            pergunta.setText(p.getPergunta());
-            List<String> respostas = p.getRespostas();
-            rbResposta0.setText(respostas.get(0));
-            rbResposta1.setText(respostas.get(1));
-            rbResposta2.setText(respostas.get(2));
-            rbResposta3.setText(respostas.get(3));
-            rgRespostas.clearCheck();
-        }else{ //acabaram as questões
-            //mandar para outra tela
-        }
-
-    }
-
-
-    public void btnResponderOnClick(View v){
-        RadioGroup rgRespostas = (RadioGroup)findViewById(R.id.rgRespostas);
-        RadioButton rb = (RadioButton)findViewById(rgRespostas.getCheckedRadioButtonId());
-        if(tipoADS == 1){
-            Log.i("tipoADS", "1");
-            if(rbResposta0.isChecked()){
-                a = a + 0;
+        public void adicionarResposta(){
+            if (contador == 0) {
+                adicionarStress();
             }
-            if(rbResposta1.isChecked()){
-                a = a + 1;
+            if (contador == 1) {
+                adicionarAnsiedade();
             }
-            if(rbResposta2.isChecked()){
-                a = a + 2;
+            if (contador == 2) {
+                adicionarDepressao();
             }
-            if(rbResposta3.isChecked()){
-                a = a + 3;
+            if (contador == 3) {
+                adicionarAnsiedade();
             }
-        }
-
-        if(tipoADS == 2){
-            Log.i("tipoADS", "2");
-            if(rbResposta0.isChecked()){
-                d = d + 0;
+            if (contador == 4) {
+                adicionarDepressao();
             }
-            if(rbResposta1.isChecked()){
-                d = d + 1;
+            if (contador == 5) {
+                adicionarStress();
             }
-            if(rbResposta2.isChecked()){
-                d = d + 2;
+            if (contador == 6) {
+                adicionarAnsiedade();
             }
-            if(rbResposta3.isChecked()){
-                d = d + 3;
+            if (contador == 7) {
+                adicionarStress();
             }
-        }
-
-        if(tipoADS == 3){
-            Log.i("tipoADS", "3");
-            if(rbResposta0.isChecked()){
-                s = s + 0;
+            if (contador == 8) {
+                adicionarAnsiedade();
             }
-            if(rbResposta1.isChecked()){
-                s = s + 1;
+            if (contador == 9) {
+                adicionarDepressao();
             }
-            if(rbResposta2.isChecked()){
-                s = s + 2;
+            if (contador == 10) {
+                adicionarStress();
             }
-            if(rbResposta3.isChecked()){
-                s = s + 3;
+            if (contador == 11) {
+                adicionarStress();
+            }
+            if (contador == 12) {
+                adicionarDepressao();
+            }
+            if (contador == 13) {
+                adicionarStress();
+            }
+            if (contador == 14) {
+                adicionarAnsiedade();
+            }
+            if (contador == 15) {
+                adicionarDepressao();
+            }
+            if (contador == 16) {
+                adicionarDepressao();
+            }
+            if (contador == 17) {
+                adicionarStress();
+            }
+            if (contador == 18) {
+                adicionarAnsiedade();
+            }
+            if (contador == 19) {
+                adicionarAnsiedade();
+            }
+            if (contador == 20) {
+                adicionarStress();
+            }
+            if (contador == 21) {
+                adicionarDepressao();
             }
         }
 
-        Log.i("a", String.valueOf(a));
-        Log.i("d", String.valueOf(d));
-        Log.i("s", String.valueOf(s));
+        public void adicionarAnsiedade(){
+            rgRespostas = (RadioGroup) findViewById(R.id.rgRespostas);
+            rb = (RadioButton) findViewById(rgRespostas.getCheckedRadioButtonId());
 
-        onRestart();
+            if(contador == 1){
+                if (rb == rbResposta0){
+                    ansiedade.set(0, 0);
+                }
+                if (rb == rbResposta1){
+                    ansiedade.set(0, 1);
+                }
+                if (rb == rbResposta2){
+                    ansiedade.set(0, 2);
+                }
+                if (rb == rbResposta3){
+                    ansiedade.set(0, 3);
+                }
+            }
 
-    }*/
+            if(contador == 3){
+                if (rb == rbResposta0){
+                    ansiedade.set(1, 0);
+                }
+                if (rb == rbResposta1){
+                    ansiedade.set(1, 1);
+                }
+                if (rb == rbResposta2){
+                    ansiedade.set(1, 2);
+                }
+                if (rb == rbResposta3){
+                    ansiedade.set(1, 3);
+                }
+            }
+
+            if(contador == 6){
+                if (rb == rbResposta0){
+                    ansiedade.set(2, 0);
+                }
+                if (rb == rbResposta1){
+                    ansiedade.set(2, 1);
+                }
+                if (rb == rbResposta2){
+                    ansiedade.set(2, 2);
+                }
+                if (rb == rbResposta3){
+                    ansiedade.set(2, 3);
+                }
+            }
+
+            if(contador == 8){
+                if (rb == rbResposta0){
+                    ansiedade.set(3, 0);
+                }
+                if (rb == rbResposta1){
+                    ansiedade.set(3, 1);
+                }
+                if (rb == rbResposta2){
+                    ansiedade.set(3, 2);
+                }
+                if (rb == rbResposta3){
+                    ansiedade.set(3, 3);
+                }
+            }
+
+            if(contador == 14){
+                if (rb == rbResposta0){
+                    ansiedade.set(4, 0);
+                }
+                if (rb == rbResposta1){
+                    ansiedade.set(4, 1);
+                }
+                if (rb == rbResposta2){
+                    ansiedade.set(4, 2);
+                }
+                if (rb == rbResposta3){
+                    ansiedade.set(4, 3);
+                }
+            }
+
+            if(contador == 18){
+                if (rb == rbResposta0){
+                    ansiedade.set(5, 0);
+                }
+                if (rb == rbResposta1){
+                    ansiedade.set(5, 1);
+                }
+                if (rb == rbResposta2){
+                    ansiedade.set(5, 2);
+                }
+                if (rb == rbResposta3){
+                    ansiedade.set(5, 3);
+                }
+            }
+
+            if(contador == 19){
+                if (rb == rbResposta0){
+                    ansiedade.set(6, 0);
+                }
+                if (rb == rbResposta1){
+                    ansiedade.set(6, 1);
+                }
+                if (rb == rbResposta2){
+                    ansiedade.set(6, 2);
+                }
+                if (rb == rbResposta3){
+                    ansiedade.set(6, 3);
+                }
+            }
+        }
+
+        public void adicionarDepressao(){
+            rgRespostas = (RadioGroup) findViewById(R.id.rgRespostas);
+            rb = (RadioButton) findViewById(rgRespostas.getCheckedRadioButtonId());
+
+            if(contador == 2){
+                if (rb == rbResposta0){
+                    depressao.set(0, 0);
+                }
+                if (rb == rbResposta1){
+                    depressao.set(0, 1);
+                }
+                if (rb == rbResposta2){
+                    depressao.set(0, 2);
+                }
+                if (rb == rbResposta3){
+                    depressao.set(0, 3);
+                }
+            }
+
+            if(contador == 4){
+                if (rb == rbResposta0){
+                    depressao.set(1, 0);
+                }
+                if (rb == rbResposta1){
+                    depressao.set(1, 1);
+                }
+                if (rb == rbResposta2){
+                    depressao.set(1, 2);
+                }
+                if (rb == rbResposta3){
+                    depressao.set(1, 3);
+                }
+            }
+
+            if(contador == 9){
+                if (rb == rbResposta0){
+                    depressao.set(2, 0);
+                }
+                if (rb == rbResposta1){
+                    depressao.set(2, 1);
+                }
+                if (rb == rbResposta2){
+                    depressao.set(2, 2);
+                }
+                if (rb == rbResposta3){
+                    depressao.set(2, 3);
+                }
+            }
+
+            if(contador == 12){
+                if (rb == rbResposta0){
+                    depressao.set(3, 0);
+                }
+                if (rb == rbResposta1){
+                    depressao.set(3, 1);
+                }
+                if (rb == rbResposta2){
+                    depressao.set(3, 2);
+                }
+                if (rb == rbResposta3){
+                    depressao.set(3, 3);
+                }
+            }
+
+            if(contador == 15){
+                if (rb == rbResposta0){
+                    depressao.set(4, 0);
+                }
+                if (rb == rbResposta1){
+                    depressao.set(4, 1);
+                }
+                if (rb == rbResposta2){
+                    depressao.set(4, 2);
+                }
+                if (rb == rbResposta3){
+                    depressao.set(4, 3);
+                }
+            }
+
+            if(contador == 16){
+                if (rb == rbResposta0){
+                    depressao.set(5, 0);
+                }
+                if (rb == rbResposta1){
+                    depressao.set(5, 1);
+                }
+                if (rb == rbResposta2){
+                    depressao.set(5, 2);
+                }
+                if (rb == rbResposta3){
+                    depressao.set(5, 3);
+                }
+            }
+
+            if(contador == 20){
+                if (rb == rbResposta0){
+                    depressao.set(6, 0);
+                }
+                if (rb == rbResposta1){
+                    depressao.set(6, 1);
+                }
+                if (rb == rbResposta2){
+                    depressao.set(6, 2);
+                }
+                if (rb == rbResposta3){
+                    depressao.set(6, 3);
+                }
+            }
+        }
+
+        public void adicionarStress(){
+            rgRespostas = (RadioGroup) findViewById(R.id.rgRespostas);
+            rb = (RadioButton) findViewById(rgRespostas.getCheckedRadioButtonId());
+
+            if(contador == 0){
+                if (rb == rbResposta0){
+                    stress.set(0, 0);
+                }
+                if (rb == rbResposta1){
+                    stress.set(0, 1);
+                }
+                if (rb == rbResposta2){
+                    stress.set(0, 2);
+                }
+                if (rb == rbResposta3){
+                    stress.set(0, 3);
+                }
+            }
+
+            if(contador == 5){
+                if (rb == rbResposta0){
+                    stress.set(1, 0);
+                }
+                if (rb == rbResposta1){
+                    stress.set(1, 1);
+                }
+                if (rb == rbResposta2){
+                    stress.set(1, 2);
+                }
+                if (rb == rbResposta3){
+                    stress.set(1, 3);
+                }
+            }
+
+            if(contador == 7){
+                if (rb == rbResposta0){
+                    stress.set(2, 0);
+                }
+                if (rb == rbResposta1){
+                    stress.set(2, 1);
+                }
+                if (rb == rbResposta2){
+                    stress.set(2, 2);
+                }
+                if (rb == rbResposta3){
+                    stress.set(2, 3);
+                }
+            }
+
+            if(contador == 10){
+                if (rb == rbResposta0){
+                    stress.set(3, 0);
+                }
+                if (rb == rbResposta1){
+                    stress.set(3, 1);
+                }
+                if (rb == rbResposta2){
+                    stress.set(3, 2);
+                }
+                if (rb == rbResposta3){
+                    stress.set(3, 3);
+                }
+            }
+
+            if(contador == 11){
+                if (rb == rbResposta0){
+                    stress.set(4, 0);
+                }
+                if (rb == rbResposta1){
+                    stress.set(4, 1);
+                }
+                if (rb == rbResposta2){
+                    stress.set(4, 2);
+                }
+                if (rb == rbResposta3){
+                    stress.set(4, 3);
+                }
+            }
+
+            if(contador == 13){
+                if (rb == rbResposta0){
+                    stress.set(5, 0);
+                }
+                if (rb == rbResposta1){
+                    stress.set(5, 1);
+                }
+                if (rb == rbResposta2){
+                    stress.set(5, 2);
+                }
+                if (rb == rbResposta3){
+                    stress.set(5, 3);
+                }
+            }
+
+            if(contador == 17){
+                if (rb == rbResposta0){
+                    stress.set(6, 0);
+                }
+                if (rb == rbResposta1){
+                    stress.set(6, 1);
+                }
+                if (rb == rbResposta2){
+                    stress.set(6, 2);
+                }
+                if (rb == rbResposta3){
+                    stress.set(6, 3);
+                }
+            }
+        }
 
         @Override
         protected void onRestart () {
