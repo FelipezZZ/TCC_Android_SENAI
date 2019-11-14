@@ -20,6 +20,7 @@ public class DASS21Activity extends AppCompatActivity {
     RadioGroup rgRespostas;
     Button btnConcluir;
     int contador = 0;
+    List<Pergunta> perguntas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,45 +36,55 @@ public class DASS21Activity extends AppCompatActivity {
 
         btnConcluir = findViewById(R.id.btnConcluir);
 
+
+        perguntas = new ArrayList<Pergunta>() {
+            {
+                add(new Pergunta(1, "0-Minha boca ficou seca", 4));
+                add(new Pergunta(2, "1-Nao tive nenhum sentimento positivo", 4));
+                add(new Pergunta(1, "2-Em alguns momentos tive dificuldade de respirar (chiado e falta de ar sem esforço físico)", 4));
+                add(new Pergunta(2, "3-Não consegui ter iniciativa para fazer as coisas", 4));
+            }
+        };
+
         carregarPergunta();
     }
 
-    List<Pergunta> perguntas = new ArrayList<Pergunta>() {
-        {
-            add(new Pergunta(1, "0-Minha boca ficou seca"));
-            add(new Pergunta(2, "1-Nao tive nenhum sentimento positivo"));
-            add(new Pergunta(1, "2-Em alguns momentos tive dificuldade de respirar (chiado e falta de ar sem esforço físico)"));
-            add(new Pergunta(2, "3-Não consegui ter iniciativa para fazer as coisas"));
-        }
-    };
-
-    //LISTA DE RESPOSTAS ANSIEDADE
-    ArrayList<Integer> ansiedade = new ArrayList<Integer>(){
-        {
-            add(null);
-            add(null);
-        }
-    };
-
-    //LISTA DE RESPOSTAS DEPRESSAO
-    ArrayList<Integer> depressao = new ArrayList<Integer>(){
-        {
-            add(null);
-            add(null);
-        }
-    };
 
     private void carregarPergunta() {
         Pergunta p = perguntas.get(contador);
         tvPergunta.setText(p.getPergunta());
         rgRespostas.clearCheck();
 
-        /*if(ansiedade.get(0) != 4 & ansiedade.get(1) != 4 & depressao.get(0) != 4 & depressao.get(1) != 4){
+        print();
+
+        if(verificaResposta()){
             btnConcluir.setVisibility(View.VISIBLE);
-        }*/
+        }
     }
 
     public void btnConcluirOnClick(View v){
+        int a = 0 , d = 0, s = 0;
+
+        for(int i =0; i <= 3 ; i++){
+            if(perguntas.get(i).getTipoADS() == 1){
+                a += perguntas.get(i).getRes();
+            }else
+            if(perguntas.get(i).getTipoADS() == 2){
+                d += perguntas.get(i).getRes();
+            }else
+            if(perguntas.get(i).getTipoADS() == 3){
+                s += perguntas.get(i).getRes();
+            }
+        }
+
+        a = a * 2;
+        d = d * 2;
+        s = s * 2;
+
+
+        Log.i("Valor", String.valueOf(a));
+        Log.i("Valor", String.valueOf(d));
+        Log.i("Valor", String.valueOf(s));
 
     }
 
@@ -99,98 +110,54 @@ public class DASS21Activity extends AppCompatActivity {
     }
 
     public void adicionarResposta(){
-        if (contador == 0) {
-            Log.i("Evento", "Pergunta A1");
-            adicionarAnsiedade();
-        }else
-        if (contador == 1) {
-            Log.i("Evento", "Pergunta D1");
-            adicionarDepressao();
-        }else
-        if (contador == 2) {
-            Log.i("Evento", "Pergunta A2");
-            adicionarAnsiedade();
-        }else
-        if(contador == 3) {
-            Log.i("Evento", "Pergunta D2");
-            adicionarDepressao();
-        }
+        perguntas.get(contador).setRes(getRes());
     }
 
-    public void adicionarAnsiedade(){
+    public int getRes(){
         rgRespostas = findViewById(R.id.rgRespostas);
         rb = findViewById(rgRespostas.getCheckedRadioButtonId());
 
-        if (contador == 0) {
-            if (rb == rbResposta0){
-                ansiedade.set(0, 0);
-            }else
-            if (rb == rbResposta1){
-                ansiedade.set(0, 1);
-            }else
-            if (rb == rbResposta2){
-                ansiedade.set(0, 2);
-            }else
-            if (rb == rbResposta3){
-                ansiedade.set(0, 3);
-            }
-            log();
+        if (rb == rbResposta0){
+            return 0;
         }else
-        if (contador == 2) {
-            if (rb == rbResposta0){
-                ansiedade.set(1, 0);
-            }else
-            if (rb == rbResposta1){
-                ansiedade.set(1, 1);
-            }else
-            if (rb == rbResposta2){
-                ansiedade.set(1, 2);
-            }else
-            if (rb == rbResposta3){
-                ansiedade.set(1, 3);
-            }
-            log();
+        if (rb == rbResposta1){
+            return 1;
+        }else
+        if (rb == rbResposta2){
+            return 2;
+        }else
+        if (rb == rbResposta3){
+            return 3;
         }
+        return 0;
     }
 
-    public void adicionarDepressao(){
-        if (contador == 1) {
-            if (rb == rbResposta0){
-                depressao.set(0, 0);
-            }else
-            if (rb == rbResposta1){
-                depressao.set(0, 1);
-            }else
-            if (rb == rbResposta2){
-                depressao.set(0, 2);
-            }else
-            if (rb == rbResposta3){
-                depressao.set(0, 3);
+    public boolean verificaResposta() {
+        boolean respondida = false;
+        int respondidas = 0;
+
+
+        for (int i = 0; i <= 3; i++) {
+            if (perguntas.get(i).getRes() == 4) {
+
+            } else if (perguntas.get(i).getRes() != 4) {
+                respondidas++;
             }
-            log();
-        }else
-        if (contador == 3) {
-            if (rb == rbResposta0){
-                depressao.set(1, 0);
-            }else
-            if (rb == rbResposta1){
-                depressao.set(1, 1);
-            }else
-            if (rb == rbResposta2){
-                depressao.set(1, 2);
-            }else
-            if (rb == rbResposta3){
-                depressao.set(1, 3);
-            }
-            log();
         }
+
+        if (respondidas == 4) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
-    public void log(){
-        System.out.println("Contador " + contador);
-
-        System.out.println("Lista A " + ansiedade);
-        System.out.println("Lista D " + depressao);
+    public void print(){
+        Log.i("Evento", "Resposta 0 " + + perguntas.get(0).getRes());
+        Log.i("Evento", "Resposta 1 " + + perguntas.get(1).getRes());
+        Log.i("Evento", "Resposta 2 " + + perguntas.get(2).getRes());
+        Log.i("Evento", "Resposta 3 " + + perguntas.get(3).getRes());
     }
 
     @Override
