@@ -50,26 +50,16 @@ public class DASS21Activity extends AppCompatActivity {
     //LISTA DE RESPOSTAS ANSIEDADE
     ArrayList<Integer> ansiedade = new ArrayList<Integer>(){
         {
-            add(4);
-            add(4);
-            add(4);
-            add(4);
-            add(4);
-            add(4);
-            add(4);
+            add(null);
+            add(null);
         }
     };
 
     //LISTA DE RESPOSTAS DEPRESSAO
     ArrayList<Integer> depressao = new ArrayList<Integer>(){
         {
-            add(4);
-            add(4);
-            add(4);
-            add(4);
-            add(4);
-            add(4);
-            add(4);
+            add(null);
+            add(null);
         }
     };
 
@@ -78,9 +68,9 @@ public class DASS21Activity extends AppCompatActivity {
         tvPergunta.setText(p.getPergunta());
         rgRespostas.clearCheck();
 
-        if(ansiedade.get(0) != 4 & ansiedade.get(1) != 4 & depressao.get(0) != 4 & depressao.get(1) != 4){
+        /*if(ansiedade.get(0) != 4 & ansiedade.get(1) != 4 & depressao.get(0) != 4 & depressao.get(1) != 4){
             btnConcluir.setVisibility(View.VISIBLE);
-        }
+        }*/
     }
 
     public void btnConcluirOnClick(View v){
@@ -112,16 +102,16 @@ public class DASS21Activity extends AppCompatActivity {
         if (contador == 0) {
             Log.i("Evento", "Pergunta A1");
             adicionarAnsiedade();
-        }
+        }else
         if (contador == 1) {
             Log.i("Evento", "Pergunta D1");
             adicionarDepressao();
-        }
+        }else
         if (contador == 2) {
             Log.i("Evento", "Pergunta A2");
             adicionarAnsiedade();
-        }
-        if (contador == 3) {
+        }else
+        if(contador == 3) {
             Log.i("Evento", "Pergunta D2");
             adicionarDepressao();
         }
@@ -134,28 +124,28 @@ public class DASS21Activity extends AppCompatActivity {
         if (contador == 0) {
             if (rb == rbResposta0){
                 ansiedade.set(0, 0);
-            }
+            }else
             if (rb == rbResposta1){
                 ansiedade.set(0, 1);
-            }
+            }else
             if (rb == rbResposta2){
                 ansiedade.set(0, 2);
-            }
+            }else
             if (rb == rbResposta3){
                 ansiedade.set(0, 3);
             }
             log();
-        }
+        }else
         if (contador == 2) {
             if (rb == rbResposta0){
                 ansiedade.set(1, 0);
-            }
+            }else
             if (rb == rbResposta1){
                 ansiedade.set(1, 1);
-            }
+            }else
             if (rb == rbResposta2){
                 ansiedade.set(1, 2);
-            }
+            }else
             if (rb == rbResposta3){
                 ansiedade.set(1, 3);
             }
@@ -167,28 +157,28 @@ public class DASS21Activity extends AppCompatActivity {
         if (contador == 1) {
             if (rb == rbResposta0){
                 depressao.set(0, 0);
-            }
+            }else
             if (rb == rbResposta1){
                 depressao.set(0, 1);
-            }
+            }else
             if (rb == rbResposta2){
                 depressao.set(0, 2);
-            }
+            }else
             if (rb == rbResposta3){
                 depressao.set(0, 3);
             }
             log();
-        }
+        }else
         if (contador == 3) {
             if (rb == rbResposta0){
                 depressao.set(1, 0);
-            }
+            }else
             if (rb == rbResposta1){
                 depressao.set(1, 1);
-            }
+            }else
             if (rb == rbResposta2){
                 depressao.set(1, 2);
-            }
+            }else
             if (rb == rbResposta3){
                 depressao.set(1, 3);
             }
