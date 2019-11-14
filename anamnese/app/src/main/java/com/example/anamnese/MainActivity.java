@@ -49,39 +49,39 @@ public class MainActivity extends AppCompatActivity  implements RecyclerViewAdap
     //LISTA DE RESPOSTAS ANSIEDADE
     ArrayList<Integer> ansiedade = new ArrayList<Integer>(){
         {
-            add(0);
-            add(0);
-            add(0);
-            add(0);
-            add(0);
-            add(0);
-            add(0);
+            add(4);
+            add(4);
+            add(4);
+            add(4);
+            add(4);
+            add(4);
+            add(4);
         }
     };
 
     //LISTA DE RESPOSTAS DEPRESSAO
     ArrayList<Integer> depressao = new ArrayList<Integer>(){
         {
-            add(0);
-            add(0);
-            add(0);
-            add(0);
-            add(0);
-            add(0);
-            add(0);
+            add(4);
+            add(4);
+            add(4);
+            add(4);
+            add(4);
+            add(4);
+            add(4);
         }
     };
 
     //LISTA DE RESPOSTAS STRESS
     ArrayList<Integer> stress = new ArrayList<Integer>(){
         {
-            add(0);
-            add(0);
-            add(0);
-            add(0);
-            add(0);
-            add(0);
-            add(0);
+            add(4);
+            add(4);
+            add(4);
+            add(4);
+            add(4);
+            add(4);
+            add(4);
         }
     };
 
@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity  implements RecyclerViewAdap
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(layoutManager);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, mNumeros, this);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, mNumeros, this, ansiedade, depressao, stress);
         recyclerView.setAdapter(adapter);
     }
 
@@ -175,6 +175,22 @@ public class MainActivity extends AppCompatActivity  implements RecyclerViewAdap
             //mandar para outra tela
         }
 
+
+        //MARCA O RADIO BUTTON DE ACORDO COM OQ ESTA NA LISTA DE RESPOSTAS
+        if(contador == 0){
+            if(stress.get(0) == 0){
+                rbResposta0.setChecked(true);
+            }
+            if(stress.get(0) == 1){
+                rbResposta1.setChecked(true);
+            }
+            if(stress.get(0) == 2){
+                rbResposta2.setChecked(true);
+            }
+            if(stress.get(0) == 3){
+                rbResposta3.setChecked(true);
+            }
+        }
     }
 
         public void btnPrevOnClick (View v){
@@ -625,6 +641,7 @@ public class MainActivity extends AppCompatActivity  implements RecyclerViewAdap
             //if(contador <= 0){
             //   contador = 1;
             // }else {
+            initRecyclerView();
             carregarPergunta();
         }
     }

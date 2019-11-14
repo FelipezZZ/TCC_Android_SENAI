@@ -1,6 +1,8 @@
 package com.example.anamnese;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +19,23 @@ import java.util.ArrayList;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
 
-    private ArrayList<Integer> mNumeros = new ArrayList<>();
+    private ArrayList<Integer> mNumeros;
     private Context mContext;
     private OnNoteListenner mOneOnNoteListenner;
 
-    public RecyclerViewAdapter(Context context, ArrayList<Integer> numeros, OnNoteListenner onNoteListenner) {
+    private ArrayList<Integer> mAnsiedade;
+    private ArrayList<Integer> mDepressao;
+    private ArrayList<Integer> mStress;
+
+
+    public RecyclerViewAdapter(Context context, ArrayList<Integer> numeros, OnNoteListenner onNoteListenner, ArrayList<Integer> ansiedade, ArrayList<Integer> depressao, ArrayList<Integer> stress) {
         mNumeros = numeros;
         mContext = context;
+
+        mAnsiedade = ansiedade;
+        mDepressao = depressao;
+        mStress= stress;
+
         this.mOneOnNoteListenner = onNoteListenner;
     }
 
@@ -41,6 +53,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 .load(mNumeros.get(position));
 
         holder.rvText.setText(String.valueOf(mNumeros.get(position)));
+        if(mStress.get(0) != 4){
+            if (position == 0) {
+                holder.rvText.setTextColor(Color.RED);
+            }
+        }
+        if(mStress.get(1) != 4){
+            if (position == 5) {
+                holder.rvText.setTextColor(Color.RED);
+            }
+        }
+        if(mStress.get(2) != 4){
+            if (position == 7) {
+                holder.rvText.setTextColor(Color.RED);
+            }
+        }
     }
 
     @Override
