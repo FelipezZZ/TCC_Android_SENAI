@@ -6,9 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".DASS21Activity">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
     <TextView
+        android:background="@color/colorAccent"
+
         android:id="@+id/tvPergunta"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="PERGUNTA"
         android:textAlignment="center"
@@ -16,7 +26,7 @@
         android:textColor="@android:color/black"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="80dp"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="8dp"
@@ -26,6 +36,8 @@
         />
 
     <RadioGroup
+        android:background="@color/colorPrimaryDark"
+
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/rgRespostas"
@@ -39,32 +51,36 @@
         app:layout_constraintTop_toBottomOf="@+id/tvPergunta">
 
         <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/rbResposta0"
-            android:text="0"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
-
-        <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="0 – Não se aplicou de maneira alguma"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textSize="18sp" />
+
+        <RadioButton
             android:id="@+id/rbResposta1"
-            android:text="1"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
-
-        <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="1 – Aplicou-se em algum grau ou por pouco tempo"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textSize="18sp" />
+
+        <RadioButton
             android:id="@+id/rbResposta2"
-            android:text="2"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
-
-        <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="2 – Aplicou-se em um grau considerável ou por uma boa parte do tempo"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textSize="18sp" />
+
+        <RadioButton
             android:id="@+id/rbResposta3"
-            android:text="3"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3 – Aplicou-se muito ou na maioria do tempo"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textSize="18sp" />
 
     </RadioGroup>
 
@@ -106,7 +122,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:onClick="btnNextOnClick"
-        android:text="Proximo"
+        android:text="Responder"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.844"
         app:layout_constraintLeft_toLeftOf="parent"
