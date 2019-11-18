@@ -40,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Button mBtnEnter;
     private Button mBtnSelectedPhoto;
     private ImageView mImagePhoto;
-
+    private Boolean temImg = false;
     private Uri mSelectedUri;
 
     @Override
@@ -82,6 +82,7 @@ public class RegisterActivity extends AppCompatActivity {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), mSelectedUri);
                 mImagePhoto.setImageDrawable(new BitmapDrawable(bitmap));
                 mBtnSelectedPhoto.setAlpha(0);
+                temImg = true;
             } catch (IOException e) {
                 e.printStackTrace();
             }
