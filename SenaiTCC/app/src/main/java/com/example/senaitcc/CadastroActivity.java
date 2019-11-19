@@ -19,6 +19,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.ArrayList;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CadastroActivity extends AppCompatActivity {
@@ -65,6 +67,9 @@ public class CadastroActivity extends AppCompatActivity {
                 createUser();
             }
         });
+
+        ArrayList<String> universidades = new ArrayList<>();
+
     }
 
     private void createUser() {

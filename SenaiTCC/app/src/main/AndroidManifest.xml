@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TypeUserActivity"></activity>
+        <activity android:name=".PesquisarEstagiarioActivity"></activity>
+        <activity android:name=".TypeUserActivity" />
         <activity android:name=".CadastroActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".SplashActivity">
