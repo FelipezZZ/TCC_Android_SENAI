@@ -93,18 +93,16 @@ public class CadastroActivity extends AppCompatActivity implements View.OnClickL
                     con.setDoOutput(true);//QUEBRANDO CODIGO
                     con.connect();
 
-
-
                    DataOutputStream wr = new DataOutputStream(con.getOutputStream());
                    wr.writeBytes(parametros);
 
-                    BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                   BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
 
-                    String apnd = "", linha = "";
+                   String apnd = "", linha = "";
 
-                    while ((linha = br.readLine()) != null) apnd += linha;
+                   while ((linha = br.readLine()) != null) apnd += linha;
 
-                    JSONObject obj = new JSONObject(apnd);
+                   JSONObject obj = new JSONObject(apnd);
 
                 }catch(Exception e){
 
@@ -116,8 +114,6 @@ public class CadastroActivity extends AppCompatActivity implements View.OnClickL
 
         }).start();
         Toast.makeText(this, parametros, Toast.LENGTH_SHORT).show();
-
-
     }
 
 }
