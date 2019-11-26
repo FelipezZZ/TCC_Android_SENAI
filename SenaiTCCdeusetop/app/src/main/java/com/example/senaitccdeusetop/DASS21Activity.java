@@ -17,6 +17,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
@@ -179,9 +181,10 @@ public class DASS21Activity extends AppCompatActivity implements RecyclerViewAda
                     Log.i("Valor", "S " + Ss);
                     String cod_pessoa = String.valueOf(logado.getFbcod_pessoa());
 
-                    parametros = "acao="+acao+"&codPesso="+cod_pessoa+"&a="+Sa+"&d="+Sd+"&s="+Ss;
+                    parametros = "acao="+acao+"&codPessoa="+cod_pessoa+"&a="+Sa+"&d="+Sd+"&s="+Ss;
 
-                    URL url = new URL("http://192.168.100.4:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
+//                    URL url = new URL("http://192.168.100.4:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
+                    URL url = new URL("http://10.87.202.177:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
 
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
@@ -192,6 +195,66 @@ public class DASS21Activity extends AppCompatActivity implements RecyclerViewAda
                     wr.writeBytes(parametros);
 
                     BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+
+                    String apnd = "", linha = "";
+
+                    while ((linha = br.readLine()) != null)
+                        apnd += linha;
+
+                    JSONObject obj = new JSONObject();
+                    obj.put("status", apnd);
+
+                    if(obj.getString("status").equals("success")){
+                        Log.i("teste", "Foi anaminelson");
+                        mudarAcesso();
+                    }else{
+                        Log.i("teste", "Nem funfo");
+                    }
+
+                }catch(Exception e){
+                    Log.i("teste", e.toString());
+                }
+            }
+        }).start();
+    }
+
+    private void mudarAcesso() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    String acao = "mudarAcesso";
+                    String cod_pessoa = String.valueOf(logado.getFbcod_pessoa());
+
+                    parametros = "acao="+acao+"&codPessoa="+cod_pessoa;
+
+//                    URL url = new URL("http://192.168.100.4:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
+                    URL url = new URL("http://10.87.202.177:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
+
+                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
+                    con.setRequestMethod("POST");
+                    con.setDoOutput(true);
+
+                    DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+                    wr.writeBytes(parametros);
+
+                    BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+
+                    String apnd = "", linha = "";
+
+                    while ((linha = br.readLine()) != null)
+                        apnd += linha;
+
+                    JSONObject obj = new JSONObject();
+                    obj.put("status", apnd);
+
+                    if(obj.getString("status").equals("success")){
+                        Log.i("teste", "mudou status");
+                    }else{
+                        Log.i("teste", "Nem funfo");
+                    }
 
                 }catch(Exception e){
                     Log.i("teste", e.toString());

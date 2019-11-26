@@ -51,7 +51,9 @@ public class VerificaTipoAcessoActivity extends AppCompatActivity {
 
                     parametros = "acao="+acao+"&codPessoa="+cod_pessoa;
 
-                    URL url = new URL("http://192.168.100.4:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
+//                    URL url = new URL("http://192.168.100.4:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
+                    URL url = new URL("http://10.87.202.177:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
+
 
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
@@ -83,6 +85,9 @@ public class VerificaTipoAcessoActivity extends AppCompatActivity {
     }
 
     private void verificarPrimeiroAcesso() {
+
+        Log.i("teste", "verificarPrimeiroAcesso");
+
         new Thread(new Runnable() {
             public void run() {
                 try {
@@ -91,7 +96,8 @@ public class VerificaTipoAcessoActivity extends AppCompatActivity {
 
                     parametros = "acao="+acao+"&codPessoa="+cod_pessoa;
 
-                    URL url = new URL("http://192.168.100.4:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
+//                    URL url = new URL("http://192.168.100.4:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
+                    URL url = new URL("http://10.87.202.177:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
 
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
@@ -126,10 +132,10 @@ public class VerificaTipoAcessoActivity extends AppCompatActivity {
 
                         }
                         if(tipoUsuario.equals("2")){
-//                            Intent intent = new Intent(VerificaTipoAcessoActivity.this, PesquisarEstagiarioActivity.class);
-//                            intent.putExtra("codPessoa", cod_pessoa);
-//                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//                            startActivity(intent);
+                            Intent intent = new Intent(VerificaTipoAcessoActivity.this, PesquisarEstagiarioActivity.class);
+                            intent.putExtra("codPessoa", cod_pessoa);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
                         }
                     }
                 }catch(Exception e){

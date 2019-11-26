@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DASS21Activity"></activity>
+        <activity android:name=".PesquisarEstagiarioActivity"></activity>
+        <activity android:name=".DASS21Activity" />
         <activity android:name=".VerificaTipoAcessoActivity" />
         <activity android:name=".TypeUserActivity" />
         <activity android:name=".LoginActivity">
