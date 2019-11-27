@@ -18,12 +18,27 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 public class LoginActivity extends AppCompatActivity {
 
     private EditText mEditEmail;
     private EditText mEditPassword;
     private Button mBtnEnter;
     private TextView mTxtAccount;
+
+    private String parametros;
+
+    private String email;
+    private String password;
+
+    private int cod_pessoa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +54,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String email = mEditEmail.getText().toString();
-                String password = mEditPassword.getText().toString();
+                email = mEditEmail.getText().toString();
+                password = mEditPassword.getText().toString();
 
                 Log.i("logado", email);
                 Log.i("logado", password);
@@ -50,23 +65,8 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
 
-                FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                Intent intent = new Intent(LoginActivity.this, VerificaTipoAcessoActivity.class);
+                verificaCadastroSQL();
 
-                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-
-                                startActivity(intent);
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.i("Teste", e.getMessage());
-                            }
-                        });
             }
         });
 
@@ -78,4 +78,78 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void verificaCadastroSQL() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    String acao = "verificaCadastroSQL";
+
+                    parametros = "acao="+acao+"&email="+email+"&senha="+password;
+
+                    //                    URL url = new URL("http://192.168.100.4:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
+                    URL url = new URL("http://10.87.202.177:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
+
+                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
+                    con.setRequestMethod("POST");
+                    con.setDoOutput(true);
+
+                    DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+                    wr.writeBytes(parametros);
+
+                    BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+
+                    String apnd = "", linha = "";
+
+                    while ((linha = br.readLine()) != null)
+                        apnd += linha;
+
+                    JSONObject obj = new JSONObject();
+                    obj.put("cod_pessoa", apnd);
+
+                    String Scod_pessoa = String.valueOf(obj.get("cod_pessoa"));
+                    cod_pessoa = Integer.valueOf(Scod_pessoa);
+                    Log.i("teste", "JJJJJJ" + Scod_pessoa);
+
+                    if(cod_pessoa != 0 ){
+                        cadastrarFB();
+                    }else{
+                        logar();
+                    }
+
+                }catch (Exception e){
+                    Log.i("teste", e.toString());
+                }
+            }
+        }).start();
+    }
+
+    private void logar() {
+//        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
+//                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        Intent intent = new Intent(LoginActivity.this, VerificaTipoAcessoActivity.class);
+//
+//                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//
+//                        startActivity(intent);
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Log.i("Teste", e.getMessage());
+//                    }
+//                });
+        Log.i("teste", "ovo logar");
+}
+
+    private void cadastrarFB() {
+        Log.i("teste", "ovo cadastrar");
+    }
+
 }
