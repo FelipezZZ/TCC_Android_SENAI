@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBG"
     tools:context=".LoginActivity">
 
     <EditText
@@ -56,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:textStyle="bold"
-        android:textColor="@android:color/holo_green_dark"
+        android:textColor="@color/colorBlue"
         android:text="Não tem uma conta?Crie aqui!"
         app:layout_constraintEnd_toEndOf="@+id/btn_enter"
         app:layout_constraintStart_toStartOf="@+id/btn_enter"
