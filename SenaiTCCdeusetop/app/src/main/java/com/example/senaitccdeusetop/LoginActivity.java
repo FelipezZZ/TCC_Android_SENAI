@@ -14,9 +14,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.json.JSONObject;
 
@@ -37,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private String email;
     private String password;
+    private String nome;
 
     private int cod_pessoa;
 
@@ -56,9 +59,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 email = mEditEmail.getText().toString();
                 password = mEditPassword.getText().toString();
-
-                Log.i("logado", email);
-                Log.i("logado", password);
 
                 if(email == null || email.isEmpty() || password == null || password.isEmpty()){
                     Toast.makeText(LoginActivity.this, "Email e senha devem ser preenchidos", Toast.LENGTH_SHORT).show();
@@ -84,7 +84,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-
                     String acao = "verificaCadastroSQL";
 
                     parametros = "acao="+acao+"&email="+email+"&senha="+password;
@@ -112,7 +111,6 @@ public class LoginActivity extends AppCompatActivity {
 
                     String Scod_pessoa = String.valueOf(obj.get("cod_pessoa"));
                     cod_pessoa = Integer.valueOf(Scod_pessoa);
-                    Log.i("teste", "JJJJJJ" + Scod_pessoa);
 
                     if(cod_pessoa != 0 ){
                         cadastrarFB();
@@ -127,12 +125,81 @@ public class LoginActivity extends AppCompatActivity {
         }).start();
     }
 
-    private void logar() {
-//        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
-//                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+    private void cadastrarFB() {
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            Log.i("Teste", task.getResult().getUser().getUid());
+
+                            cadastrarFireBase();
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.i("Teste", e.getMessage());
+                    }
+                });
+    }
+
+    private void cadastrarFireBase() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    String acao = "pegarNome";
+
+                    String Scod_pessoa = String.valueOf(cod_pessoa);
+                    Log.i("teste", Scod_pessoa);
+                    parametros = "acao="+acao+"&codPessoa="+Scod_pessoa;
+
+                    //                    URL url = new URL("http://192.168.100.4:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
+                    URL url = new URL("http://10.87.202.177:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
+
+                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
+                    con.setRequestMethod("POST");
+                    con.setDoOutput(true);
+
+                    DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+                    wr.writeBytes(parametros);
+
+                    BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+
+                    String apnd = "", linha = "";
+
+                    while ((linha = br.readLine()) != null)
+                        apnd += linha;
+
+                    JSONObject obj = new JSONObject();
+                    obj.put("nome", apnd);
+
+                    nome = String.valueOf(obj.get("nome"));
+
+                }catch (Exception e){
+                    Log.i("teste", e.toString());
+                }
+            }
+        }).start();
+
+//        String uid = FirebaseAuth.getInstance().getUid();
+//        String fbnome = nome;
+//        String profileUrl = null;
+//        int fbcod_pessoa = cod_pessoa;
+//        String sfbcod_pessoa = String.valueOf(cod_pessoa);
+//
+//        Pessoa p = new Pessoa(uid, fbnome, profileUrl, fbcod_pessoa);
+//
+//        FirebaseFirestore.getInstance().collection("users")
+//                .document(uid)
+//                .set(p)
+//                .addOnSuccessListener(new OnSuccessListener<Void>() {
 //                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        Intent intent = new Intent(LoginActivity.this, VerificaTipoAcessoActivity.class);
+//                    public void onSuccess(Void aVoid) {
+//                        Intent intent = new Intent(CadastroActivity.this, VerificaTipoAcessoActivity.class);
 //
 //                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 //
@@ -145,11 +212,26 @@ public class LoginActivity extends AppCompatActivity {
 //                        Log.i("Teste", e.getMessage());
 //                    }
 //                });
-        Log.i("teste", "ovo logar");
-}
+    }
 
-    private void cadastrarFB() {
-        Log.i("teste", "ovo cadastrar");
+    private void logar(){
+                FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Intent intent = new Intent(LoginActivity.this, VerificaTipoAcessoActivity.class);
+
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                        startActivity(intent);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.i("Teste", e.getMessage());
+                    }
+                });
     }
 
 }
