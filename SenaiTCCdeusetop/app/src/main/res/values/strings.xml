@@ -7,4 +7,13 @@
         <item>Universidade3</item>
         <item>Universidade4</item>
     </string-array>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+    <string name="contacts">Contatos</string>
+    <string name="logout">Logout</string>
 </resources>

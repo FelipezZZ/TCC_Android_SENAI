@@ -1,4 +1,4 @@
-package com.example.senaitccdeusetop;
+package com.example.senaitccdeusetop.Activitys;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +19,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.senaitccdeusetop.Pessoa;
+import com.example.senaitccdeusetop.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -160,11 +162,10 @@ public class CadastroActivity extends AppCompatActivity implements AdapterView.O
                     String acao = "cadastrarPessoa";
 
                     parametros = "acao="+acao+"&universidade="+universidade+"&RA="+RA+"&nome="+nome+"&email="+email+
-                            "&senha="+senha+"&tipoPerf="+tipoperfil;
+                            "&senha="+senha+"&tipoPerf="+tipoperfil+"&cadastroFB="+"true";
 
-//                    URL url = new URL("http://192.168.100.4:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
-                    URL url = new URL("http://10.87.202.177:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
-
+                    URL url = new URL("http://192.168.100.78:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
+                    //URL url = new URL("http://10.87.202.177:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
 
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
@@ -269,7 +270,7 @@ public class CadastroActivity extends AppCompatActivity implements AdapterView.O
         }else if(tipoperfil == 2){
             String uid = FirebaseAuth.getInstance().getUid();
             String fbnome = nome;
-            String profileUrl = null;
+            String profileUrl = "https://cdn1.iconfinder.com/data/icons/business-users/512/circle-512.png";
             int fbcod_pessoa = cod_pessoa;
             String sfbcod_pessoa = String.valueOf(cod_pessoa);
 

@@ -1,17 +1,25 @@
-package com.example.senaitccdeusetop;
+package com.example.senaitccdeusetop.Activitys;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.example.senaitccdeusetop.Pergunta;
+import com.example.senaitccdeusetop.Pessoa;
+import com.example.senaitccdeusetop.R;
+import com.example.senaitccdeusetop.RecyclerViewAdapter;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -27,7 +35,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DASS21Activity extends AppCompatActivity implements RecyclerViewAdapter.OnNoteListenner{
+public class DASS21Activity extends AppCompatActivity implements RecyclerViewAdapter.OnNoteListenner {
 
     TextView tvPergunta;
     RadioButton rbResposta0, rbResposta1, rbResposta2, rbResposta3, rb;
@@ -183,8 +191,8 @@ public class DASS21Activity extends AppCompatActivity implements RecyclerViewAda
 
                     parametros = "acao="+acao+"&codPessoa="+cod_pessoa+"&a="+Sa+"&d="+Sd+"&s="+Ss;
 
-//                    URL url = new URL("http://192.168.100.4:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
-                    URL url = new URL("http://10.87.202.177:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
+                    URL url = new URL("http://192.168.100.78:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
+                    //URL url = new URL("http://10.87.202.177:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
 
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
@@ -229,8 +237,8 @@ public class DASS21Activity extends AppCompatActivity implements RecyclerViewAda
 
                     parametros = "acao="+acao+"&codPessoa="+cod_pessoa;
 
-//                    URL url = new URL("http://192.168.100.4:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
-                    URL url = new URL("http://10.87.202.177:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
+                    URL url = new URL("http://192.168.100.78:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
+                    //URL url = new URL("http://10.87.202.177:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
 
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
@@ -255,6 +263,12 @@ public class DASS21Activity extends AppCompatActivity implements RecyclerViewAda
                     }else{
                         Log.i("teste", "Nem funfo");
                     }
+
+                    Intent intent = new Intent(DASS21Activity.this, VerificaTipoAcessoActivity.class);
+
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                    startActivity(intent);
 
                 }catch(Exception e){
                     Log.i("teste", e.toString());
@@ -335,4 +349,32 @@ public class DASS21Activity extends AppCompatActivity implements RecyclerViewAda
         initRecyclerView();
         carregarPergunta();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.logut:
+                FirebaseAuth.getInstance().signOut();
+                verifyAuthentication();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void verifyAuthentication() {
+        if (FirebaseAuth.getInstance().getUid() == null){
+            Intent intent = new Intent(DASS21Activity.this, LoginActivity.class);
+
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            startActivity(intent);
+        }
+    }
+
 }

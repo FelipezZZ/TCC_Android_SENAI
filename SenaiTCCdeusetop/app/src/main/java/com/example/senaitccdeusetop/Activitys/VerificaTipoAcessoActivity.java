@@ -1,4 +1,4 @@
-package com.example.senaitccdeusetop;
+package com.example.senaitccdeusetop.Activitys;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.example.senaitccdeusetop.Pessoa;
+import com.example.senaitccdeusetop.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -29,6 +31,7 @@ public class VerificaTipoAcessoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verifica_tipo_acesso);
+        getSupportActionBar().hide();
 
         FirebaseFirestore.getInstance().collection("/users")
                 .document(FirebaseAuth.getInstance().getUid())
@@ -51,8 +54,8 @@ public class VerificaTipoAcessoActivity extends AppCompatActivity {
 
                     parametros = "acao="+acao+"&codPessoa="+cod_pessoa;
 
-//                    URL url = new URL("http://192.168.100.4:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
-                    URL url = new URL("http://10.87.202.177:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
+                    URL url = new URL("http://192.168.100.78:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
+                    //URL url = new URL("http://10.87.202.177:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
 
 
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -96,8 +99,8 @@ public class VerificaTipoAcessoActivity extends AppCompatActivity {
 
                     parametros = "acao="+acao+"&codPessoa="+cod_pessoa;
 
-//                    URL url = new URL("http://192.168.100.4:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
-                    URL url = new URL("http://10.87.202.177:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
+                    URL url = new URL("http://192.168.100.78:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
+                    //URL url = new URL("http://10.87.202.177:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
 
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
@@ -119,7 +122,10 @@ public class VerificaTipoAcessoActivity extends AppCompatActivity {
 
                     if(obj2.get("primeiroAcesso").equals("true")){
                         if(tipoUsuario.equals("1")){
-
+                            Intent intent = new Intent(VerificaTipoAcessoActivity.this, PesquisarEstagiarioActivity.class);
+                            intent.putExtra("codPessoa", cod_pessoa);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
                         }
                         if(tipoUsuario.equals("2")){
                             Intent intent = new Intent(VerificaTipoAcessoActivity.this, DASS21Activity.class);

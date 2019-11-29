@@ -1,4 +1,4 @@
-package com.example.senaitccdeusetop;
+package com.example.senaitccdeusetop.Activitys;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.senaitccdeusetop.Pessoa;
+import com.example.senaitccdeusetop.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -77,6 +79,13 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                verifyAuthentication();
+            }
+        }).start();
     }
 
     private void verificaCadastroSQL() {
@@ -88,8 +97,8 @@ public class LoginActivity extends AppCompatActivity {
 
                     parametros = "acao="+acao+"&email="+email+"&senha="+password;
 
-                    //                    URL url = new URL("http://192.168.100.4:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
-                    URL url = new URL("http://10.87.202.177:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
+                    URL url = new URL("http://192.168.100.78:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
+                    //URL url = new URL("http://10.87.202.177:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
 
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
@@ -113,7 +122,7 @@ public class LoginActivity extends AppCompatActivity {
                     cod_pessoa = Integer.valueOf(Scod_pessoa);
 
                     if(cod_pessoa != 0 ){
-                        cadastrarFB();
+                        createUserFireBase();
                     }else{
                         logar();
                     }
@@ -125,7 +134,7 @@ public class LoginActivity extends AppCompatActivity {
         }).start();
     }
 
-    private void cadastrarFB() {
+    private void createUserFireBase() {
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -146,6 +155,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void cadastrarFireBase() {
+
+        Log.i("teste", "Ovo cadastra no fogo");
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -156,8 +168,8 @@ public class LoginActivity extends AppCompatActivity {
                     Log.i("teste", Scod_pessoa);
                     parametros = "acao="+acao+"&codPessoa="+Scod_pessoa;
 
-                    //                    URL url = new URL("http://192.168.100.4:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
-                    URL url = new URL("http://10.87.202.177:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
+                    URL url = new URL("http://192.168.100.78:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
+                    //URL url = new URL("http://10.87.202.177:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
 
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
@@ -178,6 +190,7 @@ public class LoginActivity extends AppCompatActivity {
                     obj.put("nome", apnd);
 
                     nome = String.valueOf(obj.get("nome"));
+                    Log.i("teste", nome);
 
                 }catch (Exception e){
                     Log.i("teste", e.toString());
@@ -185,33 +198,33 @@ public class LoginActivity extends AppCompatActivity {
             }
         }).start();
 
-//        String uid = FirebaseAuth.getInstance().getUid();
-//        String fbnome = nome;
-//        String profileUrl = null;
-//        int fbcod_pessoa = cod_pessoa;
-//        String sfbcod_pessoa = String.valueOf(cod_pessoa);
-//
-//        Pessoa p = new Pessoa(uid, fbnome, profileUrl, fbcod_pessoa);
-//
-//        FirebaseFirestore.getInstance().collection("users")
-//                .document(uid)
-//                .set(p)
-//                .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void aVoid) {
-//                        Intent intent = new Intent(CadastroActivity.this, VerificaTipoAcessoActivity.class);
-//
-//                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//
-//                        startActivity(intent);
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Log.i("Teste", e.getMessage());
-//                    }
-//                });
+        String uid = FirebaseAuth.getInstance().getUid();
+        String fbnome = nome;
+        String profileUrl = null;
+        int fbcod_pessoa = cod_pessoa;
+        String sfbcod_pessoa = String.valueOf(cod_pessoa);
+
+        Pessoa p = new Pessoa(uid, fbnome, profileUrl, fbcod_pessoa);
+
+        FirebaseFirestore.getInstance().collection("users")
+                .document(uid)
+                .set(p)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Intent intent = new Intent(LoginActivity.this, VerificaTipoAcessoActivity.class);
+
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                        startActivity(intent);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.i("Teste", e.getMessage());
+                    }
+                });
     }
 
     private void logar(){
@@ -232,6 +245,16 @@ public class LoginActivity extends AppCompatActivity {
                         Log.i("Teste", e.getMessage());
                     }
                 });
+    }
+
+    private void verifyAuthentication() {
+        if (FirebaseAuth.getInstance().getUid() != null){
+            Intent intent = new Intent(LoginActivity.this, VerificaTipoAcessoActivity.class);
+
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            startActivity(intent);
+        }
     }
 
 }

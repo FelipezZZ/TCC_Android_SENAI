@@ -5,10 +5,10 @@ import android.os.Parcelable;
 
 public class Pessoa implements Parcelable {
 
-    private String uuid;
+    private int fbcod_pessoa;
     private String fbnome;
     private String profileUrl;
-    private int fbcod_pessoa;
+    private String uuid;
 
     public Pessoa() {
     }
