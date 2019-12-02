@@ -1,4 +1,4 @@
-package com.example.senaitccdeusetop;
+package com.example.senaitccdeusetop.Vo;
 
 import android.os.Parcel;
 import android.os.Parcelable;

@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.example.senaitccdeusetop.Pessoa;
+import com.example.senaitccdeusetop.Vo.Pessoa;
 import com.example.senaitccdeusetop.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;

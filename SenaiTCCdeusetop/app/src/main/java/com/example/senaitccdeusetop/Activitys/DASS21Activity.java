@@ -16,10 +16,10 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.example.senaitccdeusetop.Pergunta;
-import com.example.senaitccdeusetop.Pessoa;
+import com.example.senaitccdeusetop.Vo.Pergunta;
+import com.example.senaitccdeusetop.Vo.Pessoa;
 import com.example.senaitccdeusetop.R;
-import com.example.senaitccdeusetop.RecyclerViewAdapter;
+import com.example.senaitccdeusetop.Vo.RecyclerViewAdapter;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;

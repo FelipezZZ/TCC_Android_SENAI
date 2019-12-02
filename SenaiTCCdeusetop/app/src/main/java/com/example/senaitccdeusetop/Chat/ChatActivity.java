@@ -14,7 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.senaitccdeusetop.Pessoa;
+import com.example.senaitccdeusetop.Vo.Pessoa;
 import com.example.senaitccdeusetop.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;

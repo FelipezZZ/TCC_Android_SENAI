@@ -1,4 +1,4 @@
-package com.example.senaitccdeusetop;
+package com.example.senaitccdeusetop.Vo;
 
 public class Pergunta {
 

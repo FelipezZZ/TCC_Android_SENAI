@@ -2,10 +2,10 @@
     <string name="app_name">SenaiTCCdeusetop</string>
 
     <string-array name="universidades">
-        <item>Universidade1</item>
-        <item>Universidade2</item>
-        <item>Universidade3</item>
-        <item>Universidade4</item>
+        <item>UniFaj</item>
+        <item>Unicamp</item>
+        <item>Unisal</item>
+        <item>UNIP a escolha favorita dos mauricinhos</item>
     </string-array>
 
     <string name="menu_home">Home</string>
