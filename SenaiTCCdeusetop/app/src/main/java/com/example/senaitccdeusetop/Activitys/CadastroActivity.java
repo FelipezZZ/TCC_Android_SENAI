@@ -165,7 +165,7 @@ public class CadastroActivity extends AppCompatActivity implements AdapterView.O
                             "&senha="+senha+"&tipoPerf="+tipoperfil+"&cadastroFB="+"true";
 
                     //URL url = new URL("http://192.168.100.78:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
-                    URL url = new URL("http://10.87.202.129:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
+                    URL url = new URL("http://10.87.202.138:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
 
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
@@ -216,9 +216,14 @@ public class CadastroActivity extends AppCompatActivity implements AdapterView.O
                         Log.i("Teste", e.getMessage());
                     }
                 });
+
+
+
     }
 
-    private void cadastrarFireBase() {
+    private String cadastrarFireBase() {
+
+
         if(tipoperfil == 1){
             String filename = UUID.randomUUID().toString();
             final StorageReference ref = FirebaseStorage.getInstance().getReference("/images" + filename);
@@ -231,7 +236,7 @@ public class CadastroActivity extends AppCompatActivity implements AdapterView.O
                                 public void onSuccess(Uri uri) {
                                     Log.i("Teste", uri.toString());
 
-                                    String uid = FirebaseAuth.getInstance().getUid();
+                                   String uid = FirebaseAuth.getInstance().getUid();
                                     String fbnome = nome;
                                     String profileUrl = uri.toString();
                                     int fbcod_pessoa = cod_pessoa;
@@ -267,6 +272,9 @@ public class CadastroActivity extends AppCompatActivity implements AdapterView.O
                             Log.e("Teste", e.getMessage(), e);
                         }
                     });
+
+            return uid;
+
         }else if(tipoperfil == 2){
             String uid = FirebaseAuth.getInstance().getUid();
             String fbnome = nome;
@@ -296,6 +304,7 @@ public class CadastroActivity extends AppCompatActivity implements AdapterView.O
                         }
                     });
         }
+
     }
 
     @Override
