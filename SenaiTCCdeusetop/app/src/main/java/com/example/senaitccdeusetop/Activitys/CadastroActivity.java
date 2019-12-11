@@ -221,7 +221,7 @@ public class CadastroActivity extends AppCompatActivity implements AdapterView.O
 
     }
 
-    private String cadastrarFireBase() {
+    private void cadastrarFireBase() {
 
 
         if(tipoperfil == 1){
@@ -254,6 +254,7 @@ public class CadastroActivity extends AppCompatActivity implements AdapterView.O
                                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 
                                                     startActivity(intent);
+
                                                 }
                                             })
                                             .addOnFailureListener(new OnFailureListener() {
@@ -262,8 +263,10 @@ public class CadastroActivity extends AppCompatActivity implements AdapterView.O
                                                     Log.i("Teste", e.getMessage());
                                                 }
                                             });
+
                                 }
                             });
+
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -273,7 +276,7 @@ public class CadastroActivity extends AppCompatActivity implements AdapterView.O
                         }
                     });
 
-            return uid;
+
 
         }else if(tipoperfil == 2){
             String uid = FirebaseAuth.getInstance().getUid();
