@@ -10,12 +10,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activitys.PesquisaActivity"></activity>
+        <activity android:name=".Activitys.PesquisaActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity android:name=".Chat.ChatActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Chat.ContactsActivity" />
         </activity>
+
         <activity
             android:name=".Chat.ContactsActivity"
             android:label="Contatos">
@@ -23,21 +31,19 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activitys.PesquisarEstagiarioActivity" />
         </activity>
-        <activity android:name=".Activitys.PesquisarEstagiarioActivity" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+
+        <activity android:name=".Activitys.PesquisarEstagiarioActivity" >
         </activity>
+
         <activity android:name=".Activitys.DASS21Activity" />
         <activity android:name=".Activitys.VerificaTipoAcessoActivity" />
         <activity android:name=".Activitys.TypeUserActivity" />
         <activity android:name=".Activitys.LoginActivity" />
         <activity android:name=".Activitys.CadastroActivity" />
-        <activity android:name=".Activitys.SplashActivity">
+        <activity android:name=".Activitys.SplashActivity"/>
 
-        </activity>
+
     </application>
 
 </manifest>
