@@ -165,7 +165,8 @@ public class CadastroActivity extends AppCompatActivity implements AdapterView.O
                             "&senha="+senha+"&tipoPerf="+tipoperfil+"&cadastroFB="+"true";
 
                     //URL url = new URL("http://192.168.100.78:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
-                    URL url = new URL("http://10.87.202.138:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
+//                    URL url = new URL("http://10.87.202.138:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
+                    URL url = new URL("http://10.87.202.168:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
 
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
 

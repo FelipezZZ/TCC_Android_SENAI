@@ -5,7 +5,7 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="AUXILIUM"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
@@ -24,11 +24,6 @@
                 android:value=".Activitys.PesquisarEstagiarioActivity" />
         </activity>
         <activity android:name=".Activitys.PesquisarEstagiarioActivity" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
         </activity>
         <activity android:name=".Activitys.DASS21Activity" />
         <activity android:name=".Activitys.VerificaTipoAcessoActivity" />
@@ -36,7 +31,11 @@
         <activity android:name=".Activitys.LoginActivity" />
         <activity android:name=".Activitys.CadastroActivity" />
         <activity android:name=".Activitys.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
