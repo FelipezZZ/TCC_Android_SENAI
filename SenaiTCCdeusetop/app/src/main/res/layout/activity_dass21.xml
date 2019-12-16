@@ -18,6 +18,7 @@
     </androidx.recyclerview.widget.RecyclerView>
 
     <TextView
+
         android:id="@+id/tvPergunta"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -89,6 +90,8 @@
         android:layout_marginBottom="76dp"
         android:onClick="btnConcluirOnClick"
         android:text="Concluir"
+        android:textColor="@android:color/white"
+        android:background="@drawable/bg_button_rounded"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -104,6 +107,8 @@
         android:layout_marginBottom="8dp"
         android:onClick="btnPrevOnClick"
         android:text="Anterior"
+        android:textColor="@android:color/white"
+        android:background="@drawable/bg_button_rounded"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.150"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -119,6 +124,8 @@
         android:layout_marginBottom="8dp"
         android:onClick="btnNextOnClick"
         android:text="Avançar"
+        android:textColor="@android:color/white"
+        android:background="@drawable/bg_button_rounded"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.844"
         app:layout_constraintLeft_toLeftOf="parent"
