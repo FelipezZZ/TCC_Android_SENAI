@@ -49,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        setTitle("AUXILIUM");
 
         mEditEmail = findViewById(R.id.edit_email);
         mEditPassword = findViewById(R.id.edit_password);
@@ -97,8 +98,9 @@ public class LoginActivity extends AppCompatActivity {
 
                     parametros = "acao="+acao+"&email="+email+"&senha="+password;
 
-                    //URL url = new URL("http://192.168.100.78:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
-                    URL url = new URL("http://10.87.202.138:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
+                    URL url = new URL("http://192.168.100.78:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
+//                    URL url = new URL("http://10.87.202.138:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
+//                    URL url = new URL("http://10.87.202.168:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
 
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
@@ -115,10 +117,10 @@ public class LoginActivity extends AppCompatActivity {
                     while ((linha = br.readLine()) != null)
                         apnd += linha;
 
-                    JSONObject obj = new JSONObject();
-                    obj.put("cod_pessoa", apnd);
+                    JSONObject obj = new JSONObject(apnd);
 
                     String Scod_pessoa = String.valueOf(obj.get("cod_pessoa"));
+                    nome = String.valueOf(obj.get("nome"));
                     cod_pessoa = Integer.valueOf(Scod_pessoa);
 
                     if(cod_pessoa != 0 ){
@@ -157,46 +159,6 @@ public class LoginActivity extends AppCompatActivity {
     private void cadastrarFireBase() {
 
         Log.i("teste", "Ovo cadastra no fogo");
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    String acao = "pegarNome";
-
-                    String Scod_pessoa = String.valueOf(cod_pessoa);
-                    Log.i("teste", Scod_pessoa);
-                    parametros = "acao="+acao+"&codPessoa="+Scod_pessoa;
-
-                    //URL url = new URL("http://192.168.100.78:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
-                    URL url = new URL("http://10.87.202.138:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
-
-                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
-
-                    con.setRequestMethod("POST");
-                    con.setDoOutput(true);
-
-                    DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-                    wr.writeBytes(parametros);
-
-                    BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-
-                    String apnd = "", linha = "";
-
-                    while ((linha = br.readLine()) != null)
-                        apnd += linha;
-
-                    JSONObject obj = new JSONObject();
-                    obj.put("nome", apnd);
-
-                    nome = String.valueOf(obj.get("nome"));
-                    Log.i("teste", nome);
-
-                }catch (Exception e){
-                    Log.i("teste", e.toString());
-                }
-            }
-        }).start();
 
         String uid = FirebaseAuth.getInstance().getUid();
         String fbnome = nome;

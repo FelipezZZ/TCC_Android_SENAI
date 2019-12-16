@@ -1,21 +1,21 @@
 <resources>
-    <string name="app_name">SenaiTCCdeusetop</string>
+    <string name="app_name">Auxilium</string>
 
     <string-array name="universidades">
         <item>UniFaj</item>
         <item>Unicamp</item>
         <item>Unisal</item>
-        <item>UNIP a escolha favorita dos mauricinhos</item>
+        <item>UNIP</item>
     </string-array>
 
     <string-array name="dias">
         <item>Domingo</item>
-        <item>Segunda</item>
-        <item>Terça</item>
-        <item>Quarta</item>
-        <item>Quinta</item>
-        <item>Sexta</item>
-        <item>Sabado</item>
+        <item>Segunda-Feira</item>
+        <item>Terça-Feira</item>
+        <item>Quarta-Feira</item>
+        <item>Quinta-Feira</item>
+        <item>Sexta-Feira</item>
+        <item>Sábado-Feira</item>
 
     </string-array>
 
@@ -56,8 +56,6 @@
     <string name="menu_send">Send</string>
     <string name="contacts">Contatos</string>
     <string name="logout">Logout</string>
-
-
 
 
 </resources>
