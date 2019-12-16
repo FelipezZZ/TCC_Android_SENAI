@@ -1,5 +1,6 @@
 package com.example.senaitccdeusetop.Activitys;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,7 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -16,11 +16,10 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.example.senaitccdeusetop.Chat.ContactsActivity;
 import com.example.senaitccdeusetop.Vo.Pergunta;
 import com.example.senaitccdeusetop.Vo.Pessoa;
 import com.example.senaitccdeusetop.R;
-import com.example.senaitccdeusetop.RecyclerViewAdapter;
+import com.example.senaitccdeusetop.Vo.RecyclerViewAdapter;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -51,13 +50,23 @@ public class DASS21Activity extends AppCompatActivity implements RecyclerViewAda
     int Pa = 0 , Pd = 0, Ps = 0;
 
     String parametros;
+
     Pessoa logado;
-    private String tipoUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dass21);
+
+        FirebaseFirestore.getInstance().collection("/users")
+                .document(FirebaseAuth.getInstance().getUid())
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        logado = documentSnapshot.toObject(Pessoa.class);;
+                    }
+                });
 
         tvPergunta = findViewById(R.id.tvPergunta);
         rgRespostas = findViewById(R.id.rgRespostas);
@@ -101,59 +110,6 @@ public class DASS21Activity extends AppCompatActivity implements RecyclerViewAda
         initRecyclerView();
         carregarPergunta();
 
-        FirebaseFirestore.getInstance().collection("/users")
-                .document(FirebaseAuth.getInstance().getUid())
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        logado = documentSnapshot.toObject(Pessoa.class);
-                        verificarTipoUsuario();
-                    }
-                });
-
-    }
-
-    private void verificarTipoUsuario() {
-        new Thread(new Runnable() {
-            public void run() {
-                try {
-                    String acao = "verificarTipoUsuario";
-                    String cod_pessoa = String.valueOf(logado.getFbcod_pessoa());
-
-                    parametros = "acao="+acao+"&codPessoa="+cod_pessoa;
-
-                    URL url = new URL("http://192.168.100.78:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
-                    //URL url = new URL("http://10.87.202.177:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
-//                    URL url = new URL("http://10.87.202.168:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
-
-
-                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
-
-                    con.setRequestMethod("POST");
-                    con.setDoOutput(true);
-
-                    DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-                    wr.writeBytes(parametros);
-
-                    BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-
-                    String apnd = "", linha = "";
-
-                    while ((linha = br.readLine()) != null)
-                        apnd += linha;
-
-                    JSONObject obj = new JSONObject();
-                    obj.put("tipoUsuario", apnd);
-                    tipoUsuario = obj.getString("tipoUsuario");
-                    Log.i("teste", "Tipo Usuario " + tipoUsuario);
-
-                }catch(Exception e){
-                    Log.i("teste", e.toString());
-                }
-            }
-
-        }).start();
     }
 
     private void initRecyclerView() {
@@ -237,7 +193,6 @@ public class DASS21Activity extends AppCompatActivity implements RecyclerViewAda
 
                     URL url = new URL("http://192.168.100.78:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
                     //URL url = new URL("http://10.87.202.177:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
-//                    URL url = new URL("http://10.87.202.168:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
 
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
@@ -284,7 +239,6 @@ public class DASS21Activity extends AppCompatActivity implements RecyclerViewAda
 
                     URL url = new URL("http://192.168.100.78:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
                     //URL url = new URL("http://10.87.202.177:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
-//                    URL url = new URL("http://10.87.202.168:8080/ProjetoPsicologoBackEnd/ProcessaPessoa");
 
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
@@ -396,7 +350,22 @@ public class DASS21Activity extends AppCompatActivity implements RecyclerViewAda
         carregarPergunta();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.logut:
+                FirebaseAuth.getInstance().signOut();
+                verifyAuthentication();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     private void verifyAuthentication() {
         if (FirebaseAuth.getInstance().getUid() == null){
@@ -405,42 +374,6 @@ public class DASS21Activity extends AppCompatActivity implements RecyclerViewAda
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 
             startActivity(intent);
-        }
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_paciente, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.item0:
-                Intent intent = new Intent(DASS21Activity.this, PesquisaActivity.class);
-                startActivity(intent);
-                return true;
-            case R.id.item1:
-                intent = new Intent(DASS21Activity.this, AnamnesesActivity.class);
-                startActivity(intent);
-                return true;
-            case R.id.item2:
-                intent = new Intent(DASS21Activity.this, ContactsActivity.class);
-                startActivity(intent);
-                return true;
-            case R.id.item3:
-                intent = new Intent(DASS21Activity.this, EditarPerfilActivity.class);
-                startActivity(intent);
-                return true;
-            case R.id.item4:
-                FirebaseAuth.getInstance().signOut();
-                verifyAuthentication();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
         }
     }
 
