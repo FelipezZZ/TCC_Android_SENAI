@@ -10,26 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-<<<<<<< HEAD
-        <activity android:name=".Activitys.PesquisaActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
-        </activity>
-=======
         <activity android:name=".Activitys.EditarPerfilActivity"></activity>
         <activity android:name=".Activitys.AnamnesesActivity" />
         <activity android:name=".Activitys.PesquisaActivity" />
->>>>>>> f274339633589b317b3330de1f350229ae3d8a82
         <activity android:name=".Chat.ChatActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Chat.ContactsActivity" />
         </activity>
-
         <activity
             android:name=".Chat.ContactsActivity"
             android:label="Contatos">
@@ -37,25 +25,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activitys.PesquisarEstagiarioActivity" />
         </activity>
-<<<<<<< HEAD
-
-
-        <activity android:name=".Activitys.PesquisarEstagiarioActivity" >
-        </activity>
-
-=======
         <activity android:name=".Activitys.PesquisarEstagiarioActivity" />
->>>>>>> f274339633589b317b3330de1f350229ae3d8a82
         <activity android:name=".Activitys.DASS21Activity" />
         <activity android:name=".Activitys.VerificaTipoAcessoActivity" />
         <activity android:name=".Activitys.TypeUserActivity" />
         <activity android:name=".Activitys.LoginActivity" />
         <activity android:name=".Activitys.CadastroActivity" />
-<<<<<<< HEAD
-        <activity android:name=".Activitys.SplashActivity"/>
-
-
-=======
         <activity android:name=".Activitys.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -63,7 +38,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
->>>>>>> f274339633589b317b3330de1f350229ae3d8a82
     </application>
 
 </manifest>
