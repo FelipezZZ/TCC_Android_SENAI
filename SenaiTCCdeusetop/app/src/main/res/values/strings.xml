@@ -5,7 +5,7 @@
         <item>UniFaj</item>
         <item>Unicamp</item>
         <item>Unisal</item>
-        <item>UNIP a escolha favorita dos mauricinhos</item>
+        <item>UNIP</item>
     </string-array>
 
     <string-array name="dias">
@@ -56,8 +56,6 @@
     <string name="menu_send">Send</string>
     <string name="contacts">Contatos</string>
     <string name="logout">Logout</string>
-
-
 
 
 </resources>

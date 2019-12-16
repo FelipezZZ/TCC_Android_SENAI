@@ -1,4 +1,4 @@
-package com.example.senaitccdeusetop.Vo;
+package com.example.senaitccdeusetop;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,28 +9,27 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.example.senaitccdeusetop.R;
+import com.example.senaitccdeusetop.Activitys.AnamnesesActivity;
+import com.example.senaitccdeusetop.Vo.Anamnese;
+import com.example.senaitccdeusetop.Vo.Pergunta;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+public class AnamnesesAdapter extends RecyclerView.Adapter<AnamnesesAdapter.ViewHolder> {
 
-    private ArrayList<Integer> mNumeros;
+    private List<Anamnese> mAnamneses;
     private Context mContext;
     private OnNoteListenner mOneOnNoteListenner;
 
-    private List<Pergunta> mPerguntas;
-
-    public RecyclerViewAdapter(Context context, ArrayList<Integer> numeros, OnNoteListenner onNoteListenner, List<Pergunta> perguntas) {
-        mNumeros = numeros;
+    public AnamnesesAdapter(Context context, List<Anamnese> anamneses, OnNoteListenner onNoteListenner) {
+        mAnamneses = anamneses;
         mContext = context;
-        mPerguntas = perguntas;
 
         this.mOneOnNoteListenner = onNoteListenner;
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listitem, parent, false);
@@ -39,31 +38,29 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
-        Glide.with(mContext)
-                .asBitmap()
-                .load(mNumeros.get(position));
-
-        //CONSERTAR A PORRA DO POSITION PRA PINTAR OS BAGULHO
-        holder.rvText.setText(String.valueOf(mNumeros.get(position)));
-        /*if(mPerguntas.get(position).getRes() != 4){
-            holder.rvText.setBackgroundColor(Color.RED);
-        }*/
+        holder.tvData.setText(String.valueOf(mAnamneses.get(position).getDataAnamneses()));
+        holder.tvA.setText(String.valueOf(mAnamneses.get(position).getAnsiedade()));
+        holder.tvD.setText(String.valueOf(mAnamneses.get(position).getDepressao()));
+        holder.tvS.setText(String.valueOf(mAnamneses.get(position).getEstresse()));
     }
+
 
     @Override
     public int getItemCount() {
-        return mNumeros.size();
+        return mAnamneses.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        TextView rvText;
+        TextView tvData, tvA, tvD, tvS;
         OnNoteListenner onNoteListenner;
 
         public ViewHolder(View itemView, OnNoteListenner onNoteListenner) {
             super(itemView);
-            rvText = itemView.findViewById(R.id.rvText);
+            tvData = itemView.findViewById(R.id.tvData);
+            tvA = itemView.findViewById(R.id.tvA);
+            tvD = itemView.findViewById(R.id.tvD);
+            tvS = itemView.findViewById(R.id.tvS);
             this.onNoteListenner = onNoteListenner;
 
             itemView.setOnClickListener(this);
