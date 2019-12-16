@@ -24,6 +24,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+<<<<<<< HEAD
+import java.lang.reflect.Array;
+
+public class PesquisaActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener  {
+=======
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -33,6 +38,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class PesquisaActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+>>>>>>> f274339633589b317b3330de1f350229ae3d8a82
 
     Button btnPesquisar;
     Spinner spnDia, spnInicio, spnFim;
@@ -42,10 +48,13 @@ public class PesquisaActivity extends AppCompatActivity implements AdapterView.O
     private String parametros;
     private String tipoUsuario;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pesquisa);
+<<<<<<< HEAD
+=======
         btnPesquisar = findViewById(R.id.btnPesquisar);
         btnPesquisar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,29 +62,36 @@ public class PesquisaActivity extends AppCompatActivity implements AdapterView.O
                 Pesquisar(diaFormatado, inicio, fim);
             }
         });
+>>>>>>> f274339633589b317b3330de1f350229ae3d8a82
 
 
+
+        btnPesquisar = findViewById(R.id.btnPesquisar);
         spnDia = findViewById(R.id.spnDia);
-        spnDia.setOnItemSelectedListener(this);
-        ArrayAdapter<CharSequence> adpDias = ArrayAdapter.createFromResource(this,
-                R.array.dias, android.R.layout.simple_spinner_item);
-        adpDias.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spnDia.setAdapter(adpDias);
+        spnInicio = findViewById(R.id.spnInicio);
+        spnFim = findViewById(R.id.spnFim);
 
+
+
+       ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.dias, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnDia.setAdapter(adapter);
+        spnDia.setOnItemSelectedListener(this);
 
         ArrayAdapter<CharSequence> adpHorario = ArrayAdapter.createFromResource(this,
                 R.array.Horario, android.R.layout.simple_spinner_item);
 
-        spnInicio = findViewById(R.id.spnInicio);
+
         spnInicio.setOnItemSelectedListener(this);
         adpHorario.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnInicio.setAdapter(adpHorario);
+        spnInicio.setOnItemSelectedListener(this);
 
 
-        spnFim = findViewById(R.id.spnFim);
         spnFim.setOnItemSelectedListener(this);
         adpHorario.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnFim.setAdapter(adpHorario);
+        spnFim.setOnItemSelectedListener(this);
 
         FirebaseFirestore.getInstance().collection("/users")
                 .document(FirebaseAuth.getInstance().getUid())
@@ -230,6 +246,14 @@ public class PesquisaActivity extends AppCompatActivity implements AdapterView.O
                 break;
 
         }
+
+
+        switch(adapterView.getId()){
+            case 1:
+                Toast.makeText(this, "aquui", Toast.LENGTH_SHORT).show();
+
+        }
+
 
 
     }
