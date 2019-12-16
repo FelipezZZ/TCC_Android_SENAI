@@ -11,10 +11,13 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
 <<<<<<< HEAD
+<<<<<<< HEAD
         <activity android:name=".Activitys.EditarPerfilActivity"></activity>
         <activity android:name=".Activitys.AnamnesesActivity" />
         <activity android:name=".Activitys.PesquisaActivity" />
 =======
+=======
+>>>>>>> parent of f1993f7... 16/12 marcos
         <activity android:name=".Activitys.PesquisaActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,6 +26,9 @@
             </intent-filter>
 
         </activity>
+<<<<<<< HEAD
+>>>>>>> parent of f1993f7... 16/12 marcos
+=======
 >>>>>>> parent of f1993f7... 16/12 marcos
         <activity android:name=".Chat.ChatActivity">
             <meta-data
@@ -37,19 +43,26 @@
                 android:value=".Activitys.PesquisarEstagiarioActivity" />
         </activity>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <activity android:name=".Activitys.PesquisarEstagiarioActivity" />
 =======
+=======
+>>>>>>> parent of f1993f7... 16/12 marcos
 
 
         <activity android:name=".Activitys.PesquisarEstagiarioActivity" >
         </activity>
 
+<<<<<<< HEAD
+>>>>>>> parent of f1993f7... 16/12 marcos
+=======
 >>>>>>> parent of f1993f7... 16/12 marcos
         <activity android:name=".Activitys.DASS21Activity" />
         <activity android:name=".Activitys.VerificaTipoAcessoActivity" />
         <activity android:name=".Activitys.TypeUserActivity" />
         <activity android:name=".Activitys.LoginActivity" />
         <activity android:name=".Activitys.CadastroActivity" />
+<<<<<<< HEAD
 <<<<<<< HEAD
         <activity android:name=".Activitys.SplashActivity">
             <intent-filter>
@@ -58,6 +71,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+=======
+        <activity android:name=".Activitys.SplashActivity"/>
+
+
+>>>>>>> parent of f1993f7... 16/12 marcos
 =======
         <activity android:name=".Activitys.SplashActivity"/>
 

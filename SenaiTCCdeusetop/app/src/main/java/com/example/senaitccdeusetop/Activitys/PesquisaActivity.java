@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.senaitccdeusetop.R;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -30,12 +31,22 @@ public class PesquisaActivity extends AppCompatActivity implements AdapterView.O
 
     Button btnPesquisar;
     Spinner spnDia,spnInicio,spnFim;
+=======
+import java.lang.reflect.Array;
+
+public class PesquisaActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener  {
+
+    Button btnPesquisar;
+    Spinner spnDia,spnInicio,spnFim;
+
+>>>>>>> parent of f1993f7... 16/12 marcos
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pesquisa);
+<<<<<<< HEAD
 <<<<<<< HEAD
         btnPesquisar = findViewById(R.id.btnPesquisar);
         btnPesquisar.setOnClickListener(new View.OnClickListener() {
@@ -45,6 +56,8 @@ public class PesquisaActivity extends AppCompatActivity implements AdapterView.O
             }
         });
 =======
+=======
+>>>>>>> parent of f1993f7... 16/12 marcos
 
 >>>>>>> parent of f1993f7... 16/12 marcos
 
@@ -55,6 +68,7 @@ public class PesquisaActivity extends AppCompatActivity implements AdapterView.O
                 R.array.dias, android.R.layout.simple_spinner_item);
         adpDias.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnDia.setAdapter(adpDias);
+
 
 
 
@@ -80,6 +94,17 @@ public class PesquisaActivity extends AppCompatActivity implements AdapterView.O
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+<<<<<<< HEAD
+=======
+
+        switch(adapterView.getId()){
+            case 1:
+                Toast.makeText(this, "aquui", Toast.LENGTH_SHORT).show();
+
+        }
+
+
+>>>>>>> parent of f1993f7... 16/12 marcos
 
     }
 
